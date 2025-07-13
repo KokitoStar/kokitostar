@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kokito Star - Tatuajes Temporales con Glitter | Los Originales desde 2021</title>
+    <meta name="description" content="Tatuajes temporales con glitter hipoalergénicos. Más de 1 millón aplicados. Kits, estaciones para eventos y venta por mayor. Envíos a toda Colombia.">
+    
+    <!-- Meta Tags para Redes Sociales -->
+    <meta property="og:title" content="Kokito Star - Tatuajes Temporales con Glitter | Los Originales desde 2021">
+    <meta property="og:description" content="Tatuajes temporales con glitter hipoalergénicos. Más de 1 millón aplicados. Kits, estaciones para eventos y venta por mayor. Envíos a toda Colombia.">
+    <meta property="og:image" content="public/META_TAG.png">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kokito Star - Tatuajes Temporales con Glitter | Los Originales desde 2021">
+    <meta name="twitter:description" content="Tatuajes temporales con glitter hipoalergénicos. Más de 1 millón aplicados. Kits, estaciones para eventos y venta por mayor. Envíos a toda Colombia.">
+    <meta name="twitter:image" content="public/META_TAG.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="public/icono.png">
+    <link rel="shortcut icon" type="image/png" href="public/icono.png">
+    <link rel="apple-touch-icon" href="public/icono.png">
+    
+    <!-- Google Fonts - KLOP similar font -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kokito-black': '#000000',
+                        'kokito-white': '#FFFFFF',
+                        'kokito-pink': '#E91E63',
+                        'kokito-purple': '#8B5CF6',
+                        'kokito-blue': '#3B82F6'
+                    },
+                    fontFamily: {
+                        'klop': ['Fredoka', 'sans-serif'],
+                        'body': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Glitter Background Effect */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .glitter-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .glitter-container::before,
+        .glitter-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #ffd700, transparent),
+                radial-gradient(2px 2px at 40px 70px, #ffffff, transparent),
+                radial-gradient(1px 1px at 90px 40px, #ffd700, transparent),
+                radial-gradient(1px 1px at 130px 80px, #ffffff, transparent),
+                radial-gradient(2px 2px at 160px 30px, #ffd700, transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: glitter 4s linear infinite;
+        }
+
+        .glitter-container::after {
+            background-image: 
+                radial-gradient(1px 1px at 60px 20px, #ffffff, transparent),
+                radial-gradient(2px 2px at 110px 50px, #ffd700, transparent),
+                radial-gradient(1px 1px at 170px 90px, #ffffff, transparent),
+                radial-gradient(2px 2px at 10px 60px, #ffd700, transparent),
+                radial-gradient(1px 1px at 80px 10px, #ffffff, transparent);
+            animation: glitter 6s linear infinite reverse;
+        }
+
+        @keyframes glitter {
+            0% { transform: translateX(-200px); }
+            100% { transform: translateX(200px); }
+        }
+
+        /* Glass Card Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Header with less transparency */
+        .header-glass {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Navigation */
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #E91E63;
+            transform: translateY(-2px);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #E91E63 0%, #8B5CF6 50%, #3B82F6 100%);
+            color: #FFFFFF !important;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.4);
+            color: #FFFFFF !important;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #E91E63;
+            color: #FFFFFF !important;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #E91E63;
+            color: #FFFFFF !important;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Menu Links */
+        .mobile-menu-link {
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            transform: scale(1);
+        }
+        
+        .mobile-menu-link:hover {
+            background: rgba(233, 30, 99, 0.3) !important;
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.2);
+        }
+        
+        .mobile-menu-link:active {
+            transform: scale(0.98);
+            background: rgba(233, 30, 99, 0.4) !important;
+        }
+
+        /* Filter buttons specific styling */
+        .filter-btn {
+            color: #FFFFFF !important;
+        }
+        
+        .filter-btn:hover {
+            color: #FFFFFF !important;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            background: rgba(26, 26, 46, 0.98) !important;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Product Grid */
+        .product-card {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .product-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 1) !important;
+        }
+
+        .product-card h3 {
+            color: #000000 !important;
+        }
+
+        .product-card p {
+            color: #E91E63 !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #E91E63;
+            border-radius: 4px;
+        }
+
+        /* Section Spacing */
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        /* Hide sections initially */
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+
+        /* Home section specific adjustments */
+        #home .min-h-screen {
+            padding-top: 120px; /* Increased top padding to avoid header overlap */
+        }
+
+        #home .glass-card {
+            margin-top: 40px; /* Added margin to stats cards */
+        }
+    </style>
+</head>
+<body>
+    <!-- Glitter Background -->
+    <div class="glitter-container"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 header-glass">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <img src="public/LOGO_KOKITO.svg" alt="Kokito Star" class="h-10 w-auto cursor-pointer" onclick="showSection('home')">
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#" onclick="showSection('home')" class="nav-link text-white font-medium">INICIO</a>
+                        <a href="#" onclick="showSection('products')" class="nav-link text-white font-medium">PRODUCTOS</a>
+                        <a href="#" onclick="showSection('services')" class="nav-link text-white font-medium">SERVICIOS</a>
+                        <a href="#" onclick="showSection('about')" class="nav-link text-white font-medium">NOSOTROS</a>
+                        <a href="#" onclick="showSection('contact')" class="nav-link text-white font-medium">CONTACTO</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-white hover:text-kokito-pink">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="mobile-menu md:hidden fixed top-16 left-0 w-full h-full" style="background: rgba(26, 26, 46, 0.98) !important; backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1);">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#" onclick="showSection('home'); toggleMobileMenu()" class="mobile-menu-link block px-3 py-2 text-white font-medium">INICIO</a>
+                <a href="#" onclick="showSection('products'); toggleMobileMenu()" class="mobile-menu-link block px-3 py-2 text-white font-medium">PRODUCTOS</a>
+                <a href="#" onclick="showSection('services'); toggleMobileMenu()" class="mobile-menu-link block px-3 py-2 text-white font-medium">SERVICIOS</a>
+                <a href="#" onclick="showSection('about'); toggleMobileMenu()" class="mobile-menu-link block px-3 py-2 text-white font-medium">NOSOTROS</a>
+                <a href="#" onclick="showSection('contact'); toggleMobileMenu()" class="mobile-menu-link block px-3 py-2 text-white font-medium">CONTACTO</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HOME SECTION -->
+    <section id="home" class="page-section active">
+        <!-- Hero Section -->
+        <div class="min-h-screen flex items-center justify-center pt-16">
+            <div class="max-w-4xl mx-auto text-center px-4 fade-in">
+                <img src="public/LOGO_KOKITO.svg" alt="Kokito Star" class="h-32 w-auto mx-auto mb-8 float">
+                
+                <h1 class="font-klop text-6xl md:text-8xl font-bold text-white mb-6">
+                    KOKITO <span class="text-kokito-pink">STAR</span>
+                </h1>
+                
+                <p class="font-klop text-2xl md:text-4xl text-kokito-pink mb-8">
+                    Atrévete a BRILLAR con ESTILO
+                </p>
+                
+                <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                    Tatuajes temporales con glitter 100% hipoalergénicos. 
+                    Los originales desde 2021. Más de 1 millón de tatuajes aplicados. 53 diseños únicos.
+                </p>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="text-3xl font-bold text-kokito-pink">26.1K</div>
+                        <div class="text-gray-300">Seguidores Instagram</div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="text-3xl font-bold text-kokito-pink">+1M</div>
+                        <div class="text-gray-300">Tatuajes Aplicados</div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="text-3xl font-bold text-kokito-pink">5</div>
+                        <div class="text-gray-300">Ciudades</div>
+                    </div>
+                </div>
+
+                <button onclick="showSection('products')" class="btn-primary text-white font-bold py-4 px-8 rounded-2xl text-xl mb-8">
+                    VER TATUAJES ✨
+                </button>
+
+                <p class="text-gray-400 text-sm">
+                    Duran hasta 5 días • Hipoalergénicos • Seguros • Sin quejas
+                </p>
+            </div>
+        </div>
+
+        <!-- Products Preview -->
+        <div class="section-padding">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="font-klop text-4xl md:text-6xl font-bold text-center text-white mb-16">
+                    Nuestros <span class="text-kokito-pink">Servicios</span>
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Kits -->
+                    <div class="glass-card p-8 rounded-3xl text-center hover:scale-105 transition-all duration-300">
+                        <div class="text-6xl mb-6">🎁</div>
+                        <h3 class="font-klop text-2xl font-bold text-white mb-4">KITS</h3>
+                        <div class="text-3xl font-bold text-kokito-pink mb-4">$155.000</div>
+                        <p class="text-gray-300 mb-6">
+                            30 tatuajes + 6 colores de glitter + pega mágica + brocha + instrucciones
+                        </p>
+                        <button onclick="window.open('https://kit-kokito.replit.app/', '_blank')" class="btn-primary btn-text-black w-full py-3 rounded-xl font-bold">
+                            COMPRAR KIT
+                        </button>
+                    </div>
+
+                    <!-- Estaciones -->
+                    <div class="glass-card p-8 rounded-3xl text-center hover:scale-105 transition-all duration-300">
+                        <div class="text-6xl mb-6">🎪</div>
+                        <h3 class="font-klop text-2xl font-bold text-white mb-4">ESTACIONES</h3>
+                        <div class="text-3xl font-bold text-kokito-pink mb-4">$10.000 c/u</div>
+                        <p class="text-gray-300 mb-6">
+                            Profesional incluido por 2 horas. Mínimo 30 tatuajes. Para tus eventos.
+                        </p>
+                        <button onclick="window.open('https://reservas-kokito.replit.app/', '_blank')" class="btn-primary btn-text-black w-full py-3 rounded-xl font-bold">
+                            RESERVAR
+                        </button>
+                    </div>
+
+                    <!-- Por Mayor -->
+                    <div class="glass-card p-8 rounded-3xl text-center hover:scale-105 transition-all duration-300">
+                        <div class="text-6xl mb-6">📦</div>
+                        <h3 class="font-klop text-2xl font-bold text-white mb-4">POR MAYOR</h3>
+                        <div class="text-3xl font-bold text-kokito-pink mb-4">Desde $3.000</div>
+                        <p class="text-gray-300 mb-6">
+                            Para empresas y revendedores. Mínimo 100 unidades. Envío nacional.
+                        </p>
+                        <button onclick="window.open('https://kokitostar.github.io/pormayor/', '_blank')" class="btn-primary btn-text-black w-full py-3 rounded-xl font-bold">
+                            COTIZAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="section-padding bg-black/20">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <h2 class="font-klop text-4xl md:text-6xl font-bold text-white mb-16">
+                    Confían en <span class="text-kokito-pink">Nosotros</span>
+                </h2>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-8 items-center">
+                    <div class="glass-card p-4 md:p-6 rounded-2xl">
+                        <img src="public/LOGO_BANCOLOMBIA.png" alt="Bancolombia" class="h-8 md:h-12 w-auto mx-auto opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="glass-card p-4 md:p-6 rounded-2xl">
+                        <img src="public/LOGO_ALCALDIA.png" alt="Alcaldía Envigado" class="h-8 md:h-12 w-auto mx-auto opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="glass-card p-4 md:p-6 rounded-2xl">
+                        <div class="text-white font-bold text-sm md:text-base">BLESSD</div>
+                    </div>
+                    <div class="glass-card p-4 md:p-6 rounded-2xl">
+                        <div class="text-white font-bold text-sm md:text-base">MARCELA REYES</div>
+                    </div>
+                    <div class="glass-card p-4 md:p-6 rounded-2xl">
+                        <div class="text-white font-bold text-sm md:text-base">MAORY</div>
+                    </div>
+                    <div class="glass-card p-4 md:p-6 rounded-2xl">
+                        <div class="text-white font-bold text-sm md:text-base">SARA URIBE</div>
+                    </div>
+                </div>
+
+                <p class="text-2xl text-kokito-pink font-bold mt-12">
+                    "Más de 1 millón de tatuajes aplicados - Ni una sola queja"
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS SECTION -->
+    <section id="products" class="page-section pt-24">
+        <div class="max-w-7xl mx-auto px-4 section-padding">
+            <h1 class="font-klop text-4xl md:text-6xl font-bold text-center text-white mb-16">
+                Nuestros <span class="text-kokito-pink">Diseños</span>
+            </h1>
+
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button onclick="filterProducts('all')" class="filter-btn btn-primary px-6 py-3 rounded-xl font-bold" data-filter="all">
+                    TODOS (53)
+                </button>
+                <button onclick="filterProducts('futbol')" class="filter-btn btn-secondary px-6 py-3 rounded-xl font-bold" data-filter="futbol">
+                    ⚽ FÚTBOL
+                </button>
+                <button onclick="filterProducts('fantasia')" class="filter-btn btn-secondary px-6 py-3 rounded-xl font-bold" data-filter="fantasia">
+                    🦄 FANTASÍA
+                </button>
+                <button onclick="filterProducts('disney')" class="filter-btn btn-secondary px-6 py-3 rounded-xl font-bold" data-filter="disney">
+                    🏰 DISNEY
+                </button>
+                <button onclick="filterProducts('especiales')" class="filter-btn btn-secondary px-6 py-3 rounded-xl font-bold" data-filter="especiales">
+                    ⭐ ESPECIALES
+                </button>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="text-center mt-16">
+                <h3 class="font-klop text-2xl font-bold text-white mb-8">¿Cómo quieres obtener tus tatuajes?</h3>
+                <div class="flex flex-col md:flex-row gap-6 justify-center">
+                    <button onclick="window.open('https://kit-kokito.replit.app/', '_blank')" class="btn-primary px-8 py-4 rounded-xl font-bold">
+                        🎁 COMPRAR KIT ($155.000)
+                    </button>
+                    <button onclick="window.open('https://reservas-kokito.replit.app/', '_blank')" class="btn-secondary px-8 py-4 rounded-xl font-bold">
+                        🎪 RESERVAR ESTACIÓN
+                    </button>
+                    <button onclick="showSection('contact')" class="btn-secondary px-8 py-4 rounded-xl font-bold">
+                        📍 VER PUNTOS DE VENTA
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="page-section pt-24">
+        <div class="max-w-7xl mx-auto px-4 section-padding">
+            <h1 class="font-klop text-4xl md:text-6xl font-bold text-center text-white mb-16">
+                Nuestros <span class="text-kokito-pink">Servicios</span>
+            </h1>
+
+            <!-- Kit Service -->
+            <div class="glass-card p-8 md:p-12 rounded-3xl mb-12">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="text-6xl mb-6">🎁</div>
+                        <h2 class="font-klop text-3xl md:text-4xl font-bold text-white mb-6">Kit de Tatuajes Kokito</h2>
+                        <div class="text-4xl font-bold text-kokito-pink mb-6">$155.000</div>
+                        <p class="text-gray-300 mb-8 text-lg">
+                            Todo lo que necesitas para aplicar tatuajes en casa. Perfecto para fiestas, cumpleaños o diversión familiar. Elige entre 53 diseños únicos.
+                        </p>
+                        <ul class="text-gray-300 space-y-3 mb-8">
+                            <li>✨ 30 tatuajes personalizados</li>
+                            <li>🎨 6 colores de glitter a elegir</li>
+                            <li>🪄 1 pega mágica (nuestra fórmula secreta)</li>
+                            <li>🖌️ 1 brocha de limpieza</li>
+                            <li>📋 Instrucciones detalladas</li>
+                            <li>🚚 Envío incluido a toda Colombia</li>
+                        </ul>
+                        <button onclick="window.open('https://kit-kokito.replit.app/', '_blank')" class="btn-primary btn-text-black px-8 py-4 rounded-xl font-bold text-xl">
+                            COMPRAR KIT AHORA
+                        </button>
+                    </div>
+                    <div>
+                        <img src="public/KIT_KOKITO.jpg" alt="Kit Tatuajes Kokito" class="w-full rounded-2xl">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Station Service -->
+            <div class="glass-card p-8 md:p-12 rounded-3xl mb-12">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 lg:order-1">
+                        <img src="public/ESTACION_KOKITO.jpg" alt="Estación Tatuajes Kokito" class="w-full rounded-2xl">
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <div class="text-6xl mb-6">🎪</div>
+                        <h2 class="font-klop text-3xl md:text-4xl font-bold text-white mb-6">Estación de Tatuajes</h2>
+                        <div class="text-4xl font-bold text-kokito-pink mb-6">$10.000 por tatuaje</div>
+                        <p class="text-gray-300 mb-8 text-lg">
+                            Llevamos la experiencia Kokito directamente a tu evento. Perfecto para cumpleaños, eventos empresariales y celebraciones.
+                        </p>
+                        <ul class="text-gray-300 space-y-3 mb-8">
+                            <li>👨‍🎨 1 profesional aplicando por 2 horas</li>
+                            <li>🚚 Transporte incluido (Área Metropolitana)</li>
+                            <li>📊 Pedido mínimo: 30 tatuajes</li>
+                            <li>🎨 Todos los materiales incluidos</li>
+                            <li>⏱️ Instalación rápida: 15 minutos</li>
+                            <li>🎯 Atendemos todo tipo de eventos</li>
+                        </ul>
+                        <button onclick="window.open('https://reservas-kokito.replit.app/', '_blank')" class="btn-primary btn-text-black px-8 py-4 rounded-xl font-bold text-xl">
+                            RESERVAR AHORA
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wholesale Service -->
+            <div class="glass-card p-8 md:p-12 rounded-3xl">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="text-6xl mb-6">📦</div>
+                        <h2 class="font-klop text-3xl md:text-4xl font-bold text-white mb-6">Venta por Mayor</h2>
+                        <div class="text-gray-300 mb-8 text-lg">
+                            Para empresas, revendedores y emprendedores que quieren ofrecer productos Kokito.
+                        </div>
+                        <div class="bg-black/30 p-6 rounded-2xl mb-8">
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center text-white">
+                                    <span>100 a 200 unidades:</span>
+                                    <span class="text-kokito-pink font-bold text-2xl">$3.400 c/u</span>
+                                </div>
+                                <div class="flex justify-between items-center text-white">
+                                    <span>Más de 201 unidades:</span>
+                                    <span class="text-kokito-pink font-bold text-2xl">$3.000 c/u</span>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="text-gray-300 space-y-3 mb-8">
+                            <li>📦 Envíos a toda Colombia</li>
+                            <li>🎨 Pega mágica y glitter incluidos</li>
+                            <li>💼 Cotización personalizada</li>
+                            <li>🚀 Ideal para emprendedores</li>
+                        </ul>
+                        <button onclick="window.open('https://kokitostar.github.io/pormayor/', '_blank')" class="btn-primary btn-text-black px-8 py-4 rounded-xl font-bold text-xl">
+                            COTIZAR AHORA
+                        </button>
+                    </div>
+                    <div>
+                        <img src="public/MAYOREO_KOKITO.jpg" alt="Venta por Mayor Kokito" class="w-full rounded-2xl">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="page-section pt-24">
+        <div class="max-w-7xl mx-auto px-4 section-padding">
+            <h1 class="font-klop text-4xl md:text-6xl font-bold text-center text-white mb-16">
+                Sobre <span class="text-kokito-pink">Nosotros</span>
+            </h1>
+
+            <!-- Founders -->
+            <div class="glass-card p-8 md:p-12 rounded-3xl mb-12">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="font-klop text-3xl md:text-4xl font-bold text-white mb-6">Los Fundadores</h2>
+                        <p class="text-xl text-kokito-pink mb-6 font-bold">
+                            Esteban Gómez y Diana Mejía
+                        </p>
+                        <p class="text-gray-300 mb-6 text-lg leading-relaxed">
+                            En 2021, Esteban y Diana tuvieron una visión revolucionaria: crear tatuajes temporales con glitter que fueran completamente seguros, duraderos y espectaculares. Su pasión por la innovación y el compromiso con la calidad los convirtió en los pioneros de esta categoría en Colombia.
+                        </p>
+                        <p class="text-gray-300 text-lg leading-relaxed">
+                            Desde entonces, han logrado aplicar más de 1 millón de tatuajes sin recibir una sola queja, estableciendo el estándar de calidad en la industria.
+                        </p>
+                    </div>
+                    <div>
+                        <img src="public/FUNDADORES_KOKITO.jpg" alt="Esteban Gómez y Diana Mejía" class="w-full rounded-2xl">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission & Vision -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="font-klop text-2xl font-bold text-kokito-pink mb-6">Nuestra Misión</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        En Tatuajes Kokito, nuestra misión es crear y ofrecer una experiencia única y emocionante a través de nuestros tatuajes temporales con glitter. Nos dedicamos a proporcionar momentos de alegría y autoexpresión, asegurando que niños, niñas y adultos disfruten de un viaje lleno de brillo y diversión mientras se adhieren a nuestros productos de alta calidad y seguros.
+                    </p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="font-klop text-2xl font-bold text-kokito-pink mb-6">Nuestra Visión</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Como marca pionera y líder en tatuajes temporales con glitter, aspiramos a ser reconocidos a nivel mundial por nuestra innovación, calidad y compromiso con la diversión. Queremos ser la elección preferida de niños, niñas y adultos que buscan una forma única y segura de expresar su estilo.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Key Features -->
+            <div class="glass-card p-8 md:p-12 rounded-3xl">
+                <h2 class="font-klop text-3xl md:text-4xl font-bold text-white mb-12 text-center">
+                    ¿Por qué somos <span class="text-kokito-pink">LOS ORIGINALES</span>?
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">🏆</div>
+                        <h4 class="font-bold text-white mb-3">Los Pioneros</h4>
+                        <p class="text-gray-300">Primeros en Colombia desde 2021</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">🧪</div>
+                        <h4 class="font-bold text-white mb-3">Fórmula Única</h4>
+                        <p class="text-gray-300">Nuestra pega mágica es preparada por nosotros</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">🛡️</div>
+                        <h4 class="font-bold text-white mb-3">100% Seguro</h4>
+                        <p class="text-gray-300">Hipoalergénicos y certificados</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">✅</div>
+                        <h4 class="font-bold text-white mb-3">Sin Quejas</h4>
+                        <p class="text-gray-300">+1M aplicados, 0 quejas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="page-section pt-24">
+        <div class="max-w-7xl mx-auto px-4 section-padding">
+            <h1 class="font-klop text-4xl md:text-6xl font-bold text-center text-white mb-16">
+                <span class="text-kokito-pink">Contacto</span> y Ubicaciones
+            </h1>
+
+            <!-- Contact Info -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                <div class="glass-card p-8 rounded-3xl">
+                    <h2 class="font-klop text-2xl font-bold text-white mb-8">Información de Contacto</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="text-3xl">📱</div>
+                            <div>
+                                <div class="text-kokito-pink font-bold">WhatsApp</div>
+                                <a href="https://wa.me/573052661533" class="text-white hover:text-kokito-pink transition-colors">
+                                    +57 305 266 1533
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="text-3xl">✉️</div>
+                            <div>
+                                <div class="text-kokito-pink font-bold">Email</div>
+                                <a href="mailto:tatuajeskokito@gmail.com" class="text-white hover:text-kokito-pink transition-colors">
+                                    tatuajeskokito@gmail.com
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="text-3xl">⏰</div>
+                            <div>
+                                <div class="text-kokito-pink font-bold">Horarios de Atención</div>
+                                <div class="text-white">12:00 PM - 8:00 PM</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-8 border-t border-gray-600">
+                        <h3 class="font-bold text-white mb-4">Síguenos en Redes Sociales</h3>
+                        <div class="flex space-x-4">
+                            <a href="https://instagram.com/tatuajeskokito" target="_blank" class="glass-card p-3 rounded-xl hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6 text-white mx-auto mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                                <div class="text-xs text-gray-300">26.1K</div>
+                            </a>
+                            <a href="https://tiktok.com/@tatuajeskokito" target="_blank" class="glass-card p-3 rounded-xl hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6 text-white mx-auto mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                                </svg>
+                                <div class="text-xs text-gray-300">71K</div>
+                            </a>
+                            <a href="https://facebook.com/tatuajeskokito" target="_blank" class="glass-card p-3 rounded-xl hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6 text-white mx-auto mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                                <div class="text-xs text-gray-300">FB</div>
+                            </a>
+                            <a href="https://youtube.com/@tatuajeskokito" target="_blank" class="glass-card p-3 rounded-xl hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6 text-white mx-auto mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                </svg>
+                                <div class="text-xs text-gray-300">YT</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl">
+                    <h2 class="font-klop text-2xl font-bold text-white mb-8">Encuéntranos</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="text-2xl">📍</div>
+                            <div>
+                                <div class="text-kokito-pink font-bold">Medellín</div>
+                                <div class="text-gray-300">Varios puntos de venta</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="text-2xl">📍</div>
+                            <div>
+                                <div class="text-kokito-pink font-bold">Bogotá</div>
+                                <div class="text-gray-300">Varios puntos de venta</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="text-2xl">📍</div>
+                            <div>
+                                <div class="text-kokito-pink font-bold">Cali</div>
+                                <div class="text-gray-300">Varios puntos de venta</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="text-2xl">📍</div>
+                            <div>
+                                <div class="text-kokito-pink font-bold">Barranquilla</div>
+                                <div class="text-gray-300">Varios puntos de venta</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="text-2xl">📍</div>
+                            <div>
+                                <div class="text-kokito-pink font-bold">Pereira</div>
+                                <div class="text-gray-300">Varios puntos de venta</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-8 border-t border-gray-600">
+                        <div class="bg-kokito-pink/20 border border-kokito-pink/30 rounded-xl p-4">
+                            <p class="text-white text-sm">
+                                <strong>💡 Tip:</strong> Para ubicaciones específicas y disponibilidad, contáctanos por WhatsApp. ¡Te ayudamos a encontrar el punto más cercano!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="glass-card p-8 md:p-12 rounded-3xl">
+                <h2 class="font-klop text-3xl font-bold text-white mb-8 text-center">¿Tienes alguna pregunta?</h2>
+                
+                <form class="max-w-2xl mx-auto space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <input type="text" placeholder="Tu nombre" class="w-full p-4 rounded-xl bg-black/30 border border-gray-600 text-white placeholder-gray-400 focus:border-kokito-pink focus:outline-none">
+                        <input type="email" placeholder="Tu email" class="w-full p-4 rounded-xl bg-black/30 border border-gray-600 text-white placeholder-gray-400 focus:border-kokito-pink focus:outline-none">
+                    </div>
+                    <input type="text" placeholder="Asunto" class="w-full p-4 rounded-xl bg-black/30 border border-gray-600 text-white placeholder-gray-400 focus:border-kokito-pink focus:outline-none">
+                    <textarea rows="5" placeholder="Tu mensaje" class="w-full p-4 rounded-xl bg-black/30 border border-gray-600 text-white placeholder-gray-400 focus:border-kokito-pink focus:outline-none resize-none"></textarea>
+                    
+                    <div class="text-center">
+                        <button type="button" onclick="sendWhatsApp()" class="btn-primary btn-text-black px-8 py-4 rounded-xl font-bold text-xl">
+                            Enviar por WhatsApp 📱
+                        </button>
+                        <p class="text-gray-400 text-sm mt-4">
+                            Tu mensaje se abrirá en WhatsApp para envío directo
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black/40 py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <img src="public/LOGO_KOKITO.svg" alt="Kokito Star" class="h-16 w-auto mx-auto mb-6">
+            
+            <p class="text-gray-300 mb-6">
+                Kokito Star - Los originales desde 2021. Atrévete a brillar con estilo.
+            </p>
+            
+            <div class="mb-6">
+                <button onclick="window.open('https://kokito-pos.replit.app/', '_blank')" class="text-gray-400 hover:text-kokito-pink transition-colors text-sm underline">
+                    Acceso al Sistema
+                </button>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 mb-6">
+                <a href="https://instagram.com/tatuajeskokito" target="_blank" class="text-gray-400 hover:text-kokito-pink transition-colors flex items-center space-x-2">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    <span class="text-sm sm:text-base">Instagram</span>
+                </a>
+                <a href="https://tiktok.com/@tatuajeskokito" target="_blank" class="text-gray-400 hover:text-kokito-pink transition-colors flex items-center space-x-2">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                    </svg>
+                    <span class="text-sm sm:text-base">TikTok</span>
+                </a>
+                <a href="https://facebook.com/tatuajeskokito" target="_blank" class="text-gray-400 hover:text-kokito-pink transition-colors flex items-center space-x-2">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    <span class="text-sm sm:text-base">Facebook</span>
+                </a>
+                <a href="https://youtube.com/@tatuajeskokito" target="_blank" class="text-gray-400 hover:text-kokito-pink transition-colors flex items-center space-x-2">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    <span class="text-sm sm:text-base">YouTube</span>
+                </a>
+            </div>
+            
+            <p class="text-gray-500 text-sm">
+                © 2025 Kokito Star®. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.remove('open');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('open');
+        }
+
+        // Products data
+        const products = [
+            // Fútbol
+            { name: 'América', category: 'futbol', image: 'motivos/america.svg' },
+            { name: 'Cali', category: 'futbol', image: 'motivos/cali.svg' },
+            { name: 'Nacional', category: 'futbol', image: 'motivos/nacional.svg' },
+            { name: 'Medellín', category: 'futbol', image: 'motivos/medellin.svg' },
+            { name: 'Messi', category: 'futbol', image: 'motivos/messi.svg' },
+            { name: 'C Ronaldo', category: 'futbol', image: 'motivos/c-ronaldo.svg' },
+            { name: 'Mbappé', category: 'futbol', image: 'motivos/mbappe.svg' },
+            { name: 'Millonarios', category: 'futbol', image: 'motivos/millonarios.svg' },
+            { name: 'Santafé', category: 'futbol', image: 'motivos/santafe.svg' },
+            
+            // Fantasía
+            { name: 'Águila', category: 'fantasia', image: 'motivos/aguila.svg' },
+            { name: 'Araña', category: 'fantasia', image: 'motivos/arana.svg' },
+            { name: 'Arcoíris', category: 'fantasia', image: 'motivos/arcoiris.svg' },
+            { name: 'Batman', category: 'fantasia', image: 'motivos/batman.svg' },
+            { name: 'Beso', category: 'fantasia', image: 'motivos/beso.svg' },
+            { name: 'Caballo', category: 'fantasia', image: 'motivos/caballo.svg' },
+            { name: 'Carita Feliz', category: 'fantasia', image: 'motivos/carita-feliz.svg' },
+            { name: 'Corazón Karol G', category: 'fantasia', image: 'motivos/corazon-karol-g.svg' },
+            { name: 'Delfín', category: 'fantasia', image: 'motivos/delfin.svg' },
+            { name: 'Dinosaurio', category: 'fantasia', image: 'motivos/dinosaurio.svg' },
+            { name: 'Dragón', category: 'fantasia', image: 'motivos/dragon.svg' },
+            { name: 'Elefante', category: 'fantasia', image: 'motivos/elefante.svg' },
+            { name: 'Flash', category: 'fantasia', image: 'motivos/flash.svg' },
+            { name: 'Gato', category: 'fantasia', image: 'motivos/gato.svg' },
+            { name: 'Hongo', category: 'fantasia', image: 'motivos/hongo.svg' },
+            { name: 'Huella', category: 'fantasia', image: 'motivos/huella.svg' },
+            { name: 'León', category: 'fantasia', image: 'motivos/leon.svg' },
+            { name: 'Mario', category: 'fantasia', image: 'motivos/mario.svg' },
+            { name: 'Mariposa', category: 'fantasia', image: 'motivos/mariposa.svg' },
+            { name: 'Notas Musicales', category: 'fantasia', image: 'motivos/notas-musicales.svg' },
+            { name: 'Pirata', category: 'fantasia', image: 'motivos/pirata.svg' },
+            { name: 'Planeta', category: 'fantasia', image: 'motivos/planeta.svg' },
+            { name: 'Pluma', category: 'fantasia', image: 'motivos/pluma.svg' },
+            { name: 'Pony', category: 'fantasia', image: 'motivos/pony.svg' },
+            { name: 'Sirenita', category: 'fantasia', image: 'motivos/sirenita.svg' },
+            { name: 'Sonic', category: 'fantasia', image: 'motivos/sonic.svg' },
+            { name: 'Unicornio', category: 'fantasia', image: 'motivos/unicornio.svg' },
+            
+            // Disney
+            { name: 'Mickey', category: 'disney', image: 'motivos/mickey.svg' },
+            { name: 'Minnie', category: 'disney', image: 'motivos/minnie.svg' },
+            { name: 'Blancanieves', category: 'disney', image: 'motivos/blancanieves.svg' },
+            { name: 'Campanita', category: 'disney', image: 'motivos/campanita.svg' },
+            { name: 'Castillo', category: 'disney', image: 'motivos/castillo.svg' },
+            { name: 'Cenicienta', category: 'disney', image: 'motivos/cenicienta.svg' },
+            { name: 'Disney', category: 'disney', image: 'motivos/disney.svg' },
+            { name: 'Hada', category: 'disney', image: 'motivos/hada.svg' },
+            { name: 'Jazmín', category: 'disney', image: 'motivos/jazmin.svg' },
+            { name: 'Stich', category: 'disney', image: 'motivos/stich.svg' },
+            
+            // Especiales
+            { name: 'Hello Kitty', category: 'especiales', image: 'motivos/hello-kitty.svg' },
+            { name: 'Kuromi', category: 'especiales', image: 'motivos/kuromi.svg' },
+            { name: 'Labubu', category: 'especiales', image: 'motivos/labubu.svg' },
+            { name: 'My Melody', category: 'especiales', image: 'motivos/my-melody.svg' },
+            { name: 'Capibara', category: 'especiales', image: 'motivos/capibara.svg' },
+            { name: 'Barbie', category: 'especiales', image: 'motivos/barbie.svg' }
+        ];
+
+        // Filter products
+        function filterProducts(category) {
+            const grid = document.getElementById('products-grid');
+            const filteredProducts = category === 'all' ? products : products.filter(p => p.category === category);
+            
+            // Update button styles
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-secondary');
+            });
+            document.querySelector(`[data-filter="${category}"]`).classList.remove('btn-secondary');
+            document.querySelector(`[data-filter="${category}"]`).classList.add('btn-primary');
+            
+            // Render products
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card glass-card p-4 rounded-2xl text-center hover:scale-105 transition-all duration-300" style="background: rgba(255, 255, 255, 0.95) !important;">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-32 object-contain rounded-xl mb-3">
+                    <h3 class="font-bold text-sm" style="color: #000000 !important;">${product.name}</h3>
+                    <p class="text-xs" style="color: #E91E63 !important;">$10.000</p>
+                </div>
+            `).join('');
+        }
+
+        // WhatsApp contact
+        function sendWhatsApp() {
+            const form = document.querySelector('form');
+            const formData = new FormData(form);
+            const name = form.querySelector('input[placeholder="Tu nombre"]').value;
+            const email = form.querySelector('input[placeholder="Tu email"]').value;
+            const subject = form.querySelector('input[placeholder="Asunto"]').value;
+            const message = form.querySelector('textarea').value;
+            
+            const whatsappMessage = `Hola Kokito Star! 👋
+
+*Nombre:* ${name}
+*Email:* ${email}
+*Asunto:* ${subject}
+
+*Mensaje:* ${message}
+
+¡Gracias!`;
+            
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            const whatsappURL = `https://wa.me/573052661533?text=${encodedMessage}`;
+            
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            filterProducts('all');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileButton = document.querySelector('button[onclick="toggleMobileMenu()"]');
+            
+            // Check if menu is open and click is outside menu and button
+            if (mobileMenu && mobileMenu.classList.contains('open')) {
+                if (!mobileMenu.contains(e.target) && !mobileButton.contains(e.target)) {
+                    mobileMenu.classList.remove('open');
+                }
+            }
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
