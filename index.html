@@ -51,8 +51,8 @@
     </script>
     
     <style>
-        /* Glitter Background Effect */
-        body {
+        /* Glitter Background Effect - Mobile Fixed */
+        html, body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%) !important;
             min-height: 100vh;
@@ -60,11 +60,188 @@
             background-attachment: fixed;
         }
 
-        /* Mobile background fix */
+        .glitter-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 1;
+        }
+
+        .glitter-container::before,
+        .glitter-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(4px 4px at 20px 30px, #ffd700, transparent),
+                radial-gradient(3px 3px at 40px 70px, #ffffff, transparent),
+                radial-gradient(3px 3px at 90px 40px, #ffd700, transparent),
+                radial-gradient(2px 2px at 130px 80px, #ffffff, transparent),
+                radial-gradient(4px 4px at 160px 30px, #ffd700, transparent),
+                radial-gradient(3px 3px at 220px 20px, #ffffff, transparent),
+                radial-gradient(2px 2px at 280px 60px, #ffd700, transparent),
+                radial-gradient(3px 3px at 320px 90px, #ffffff, transparent);
+            background-repeat: repeat;
+            background-size: 400px 200px;
+            animation: glitterMove 6s linear infinite;
+            opacity: 0.9;
+        }
+
+        .glitter-container::after {
+            background-image: 
+                radial-gradient(3px 3px at 60px 20px, #ffffff, transparent),
+                radial-gradient(4px 4px at 110px 50px, #ffd700, transparent),
+                radial-gradient(2px 2px at 170px 90px, #ffffff, transparent),
+                radial-gradient(3px 3px at 10px 60px, #ffd700, transparent),
+                radial-gradient(2px 2px at 80px 10px, #ffffff, transparent),
+                radial-gradient(4px 4px at 240px 40px, #ffd700, transparent),
+                radial-gradient(3px 3px at 300px 80px, #ffffff, transparent),
+                radial-gradient(2px 2px at 360px 25px, #ffd700, transparent);
+            background-repeat: repeat;
+            background-size: 400px 200px;
+            animation: glitterMove 8s linear infinite reverse;
+            opacity: 0.8;
+        }
+
+        @keyframes glitterMove {
+            0% { 
+                transform: translateX(-400px) translateY(0px); 
+            }
+            25% { 
+                transform: translateX(-200px) translateY(-20px); 
+            }
+            50% { 
+                transform: translateX(0px) translateY(10px); 
+            }
+            75% { 
+                transform: translateX(200px) translateY(-10px); 
+            }
+            100% { 
+                transform: translateX(400px) translateY(0px); 
+            }
+        }
+
+        /* Enhanced glitter for mobile */
         @media (max-width: 768px) {
-            body {
-                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%) !important;
-                background-attachment: scroll;
+            .glitter-container {
+                opacity: 0.6;
+                z-index: 5;
+            }
+            
+            .glitter-container::before,
+            .glitter-container::after {
+                background-size: 300px 150px;
+                animation-duration: 7s;
+            }
+        }
+
+        /* Ensure glitter stays behind important elements */
+        .chat-widget,
+        .mobile-menu,
+        .chat-modal,
+        nav {
+            z-index: 9999 !important;
+        }
+
+        .glass-card {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Additional glitter layer for better visibility */
+        .glitter-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(4px 4px at 50px 50px, #ffd700, transparent),
+                radial-gradient(3px 3px at 150px 100px, #ffffff, transparent),
+                radial-gradient(2px 2px at 250px 150px, #ffd700, transparent),
+                radial-gradient(3px 3px at 350px 200px, #ffffff, transparent),
+                radial-gradient(4px 4px at 450px 250px, #ffd700, transparent);
+            background-repeat: repeat;
+            background-size: 500px 300px;
+            animation: glitterFloat 10s ease-in-out infinite;
+        }
+
+        @keyframes glitterFloat {
+            0%, 100% { 
+                transform: translateX(-100px) translateY(0px) rotate(0deg); 
+                opacity: 0.8;
+            }
+            25% { 
+                transform: translateX(0px) translateY(-30px) rotate(90deg); 
+                opacity: 1;
+            }
+            50% { 
+                transform: translateX(100px) translateY(20px) rotate(180deg); 
+                opacity: 0.6;
+            }
+            75% { 
+                transform: translateX(50px) translateY(-10px) rotate(270deg); 
+                opacity: 0.9;
+            }
+        }
+
+        /* Force background on all mobile devices */
+        @media (max-width: 768px) {
+            html, body {
+                background: #1a1a2e !important;
+                background-image: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%) !important;
+                background-attachment: scroll !important;
+                background-repeat: no-repeat !important;
+                background-size: cover !important;
+            }
+            
+            /* Ensure all sections have dark background */
+            .page-section {
+                background: transparent !important;
+            }
+            
+            /* Override any white backgrounds except specific elements */
+            * {
+                background-color: transparent !important;
+            }
+            
+            /* Except for specific elements that need white backgrounds */
+            .product-card,
+            .testimonial-avatar,
+            input,
+            textarea {
+                background-color: rgba(255, 255, 255, 0.95) !important;
+            }
+            
+            .glass-card {
+                background: rgba(255, 255, 255, 0.05) !important;
+                backdrop-filter: blur(20px) !important;
+            }
+            
+            .chat-modal {
+                width: calc(100vw - 20px);
+                right: 10px;
+                left: 10px;
+                bottom: 90px;
+                max-width: none;
+            }
+            
+            .chat-widget {
+                bottom: 20px;
+                right: 15px;
+            }
+            
+            .chat-button {
+                width: 55px;
+                height: 55px;
             }
         }
 
@@ -122,9 +299,14 @@
 
         /* Header with less transparency */
         .header-glass {
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(26, 26, 46, 0.92);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Custom height for navigation */
+        .h-15 {
+            height: 3.75rem; /* 60px */
         }
 
         /* Navigation */
@@ -163,8 +345,8 @@
             transform: translateY(-2px);
         }
 
-        /* Mobile Menu Links */
-        .mobile-menu-link {
+        /* Mobile Menu Links - Updated */
+        .mobile-menu-link-old {
             background: rgba(255, 255, 255, 0.1);
             margin-bottom: 8px;
             border-radius: 8px;
@@ -172,13 +354,13 @@
             transform: scale(1);
         }
         
-        .mobile-menu-link:hover {
+        .mobile-menu-link-old:hover {
             background: rgba(233, 30, 99, 0.3) !important;
             transform: scale(1.02);
             box-shadow: 0 4px 15px rgba(233, 30, 99, 0.2);
         }
         
-        .mobile-menu-link:active {
+        .mobile-menu-link-old:active {
             transform: scale(0.98);
             background: rgba(233, 30, 99, 0.4) !important;
         }
@@ -376,19 +558,28 @@
 
         /* Home section specific adjustments */
         #home .min-h-screen {
-            padding-top: 120px;
+            padding-top: 110px;
         }
 
         #home .glass-card {
             margin-top: 40px;
         }
 
+        /* Page sections padding adjustment */
+        .page-section.pt-24 {
+            padding-top: 90px;
+        }
+
         /* Mobile Responsive Improvements */
         @media (max-width: 768px) {
             #home .min-h-screen {
-                padding-top: 100px;
+                padding-top: 90px;
                 min-height: auto;
                 padding-bottom: 60px;
+            }
+            
+            .page-section.pt-24 {
+                padding-top: 80px;
             }
             
             .font-klop {
@@ -424,29 +615,478 @@
             }
         }
 
-        @media (max-width: 480px) {
-            .text-4xl {
-                font-size: 1.75rem;
+        /* Chat Widget Styles */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            pointer-events: auto;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #E91E63 0%, #8B5CF6 50%, #3B82F6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(233, 30, 99, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            border: none;
+            outline: none;
+            position: relative;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(233, 30, 99, 0.6);
+        }
+
+        .chat-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Make chat button more prominent on mobile */
+        @media (max-width: 768px) {
+            .chat-button {
+                box-shadow: 0 6px 25px rgba(233, 30, 99, 0.6);
+                animation: mobilePrompt 3s ease-in-out infinite;
             }
-            
-            .text-6xl {
-                font-size: 2.5rem;
+        }
+
+        @keyframes mobilePrompt {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 6px 25px rgba(233, 30, 99, 0.6);
             }
-            
-            .text-3xl {
-                font-size: 1.5rem;
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 8px 30px rgba(233, 30, 99, 0.8);
             }
-            
-            .px-4 {
-                padding-left: 1rem;
-                padding-right: 1rem;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 4px 20px rgba(233, 30, 99, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 20px rgba(233, 30, 99, 0.8);
+            }
+            100% {
+                box-shadow: 0 4px 20px rgba(233, 30, 99, 0.4);
+            }
+        }
+
+        .chat-modal {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            max-height: 500px;
+            background: rgba(26, 26, 46, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            z-index: 1001;
+            transform: translateY(20px) scale(0.9);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .chat-modal.open {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #E91E63 0%, #8B5CF6 100%);
+            padding: 15px;
+            border-radius: 20px 20px 0 0;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .chat-content {
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .chat-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .chat-option:hover {
+            background: rgba(233, 30, 99, 0.2);
+            border-color: #E91E63;
+            transform: translateY(-2px);
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: rgba(233, 30, 99, 0.1);
+            padding: 15px;
+            cursor: pointer;
+            color: white;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(233, 30, 99, 0.2);
+        }
+
+        .faq-answer {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: #gray-300;
+        }
+
+        .faq-answer.open {
+            padding: 15px;
+            max-height: 200px;
+        }
+
+        /* Video Player Styles */
+        .video-container {
+            position: relative;
+            aspect-ratio: 9/16;
+            max-width: 300px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-player {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .video-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(233, 30, 99, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            background: rgba(233, 30, 99, 1);
+            transform: scale(1.1);
+        }
+
+        /* Testimonial Cards */
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 40px rgba(233, 30, 99, 0.2);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 80px;
+            color: rgba(233, 30, 99, 0.3);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #E91E63;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .star {
+            color: #FFD700;
+            font-size: 18px;
+        }
+
+        /* Companies carousel */
+        .companies-carousel {
+            overflow: hidden;
+            position: relative;
+            height: 80px;
+        }
+
+        .companies-track {
+            display: flex;
+            animation: scrollCompanies 15s linear infinite;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .company-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem 2rem;
+            white-space: nowrap;
+            min-width: 200px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        @keyframes scrollCompanies {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* City Headers */
+        .city-header {
+            text-align: left;
+            margin: 60px 0 30px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .city-header h2 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .city-count {
+            background: rgba(233, 30, 99, 0.1);
+            border: 1px solid rgba(233, 30, 99, 0.3);
+            border-radius: 12px;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            color: #E91E63;
+            font-weight: 500;
+        }
+
+        .city-header:first-child {
+            margin-top: 0;
+        }
+
+        /* Location Cards */
+        .location-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 40px rgba(233, 30, 99, 0.2);
+        }
+
+        .location-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--location-color);
+        }
+
+        /* Location Types */
+        .location-trampoline {
+            --location-color: #FF6B6B;
+        }
+
+        .location-restaurant {
+            --location-color: #4ECDC4;
+        }
+
+        .location-mall {
+            --location-color: #45B7D1;
+        }
+
+        .location-adventure {
+            --location-color: #96CEB4;
+        }
+
+        .location-club {
+            --location-color: #FFEAA7;
+        }
+
+        .location-granja {
+            --location-color: #DDA0DD;
+        }
+
+        .location-icon {
+            width: 100%;
+            height: 120px;
+            margin-bottom: 20px;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .location-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 16px;
+        }
+
+        .location-fallback-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            background: var(--location-color);
+            border-radius: 16px;
+            color: white;
+        }
+
+        .location-schedule {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 12px;
+            margin: 16px 0;
+        }
+
+        .location-days {
+            display: inline-block;
+            background: rgba(233, 30, 99, 0.2);
+            border: 1px solid #E91E63;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 12px;
+            color: #E91E63;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .directions-btn {
+            background: linear-gradient(135deg, #E91E63 0%, #8B5CF6 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .directions-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .companies-track {
+                gap: 1rem;
+            }
+
+            .company-item {
+                min-width: 150px;
+                padding: 0.75rem 1.5rem;
+            }
+
+            .location-filters {
+                gap: 0.5rem;
+            }
+
+            .filter-tab {
+                padding: 8px 16px;
+                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
     <!-- Glitter Background -->
-    <div class="glitter-container"></div>
+    <div class="glitter-container">
+        <!-- Additional glitter layer for better visibility -->
+        <div class="glitter-layer"></div>
+    </div>
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 header-glass">
@@ -462,9 +1102,12 @@
                     <div class="ml-10 flex items-baseline space-x-8">
                         <a href="#" onclick="showSection('home')" class="nav-link text-white font-medium">INICIO</a>
                         <a href="#" onclick="showSection('products')" class="nav-link text-white font-medium">PRODUCTOS</a>
-                        <a href="#" onclick="showSection('gallery')" class="nav-link text-white font-medium">TATUAJES APLICADOS</a>
+                        <a href="#" onclick="showSection('videos')" class="nav-link text-white font-medium">VIDEOS</a>
+                        <a href="#" onclick="showSection('testimonials')" class="nav-link text-white font-medium">TESTIMONIOS</a>
+                        <a href="#" onclick="showSection('gallery')" class="nav-link text-white font-medium">GALERÍA</a>
                         <a href="#" onclick="showSection('services')" class="nav-link text-white font-medium">SERVICIOS</a>
                         <a href="#" onclick="showSection('about')" class="nav-link text-white font-medium">NOSOTROS</a>
+                        <a href="#" onclick="showSection('locations')" class="nav-link text-white font-medium">PUNTOS DE VENTA</a>
                         <a href="#" onclick="showSection('contact')" class="nav-link text-white font-medium">CONTACTO</a>
                     </div>
                 </div>
@@ -504,14 +1147,23 @@
                 <a href="#" onclick="navigateToSection('products')" class="mobile-menu-link">
                     🎨 PRODUCTOS
                 </a>
+                <a href="#" onclick="navigateToSection('videos')" class="mobile-menu-link">
+                    🎬 VIDEOS
+                </a>
+                <a href="#" onclick="navigateToSection('testimonials')" class="mobile-menu-link">
+                    ⭐ TESTIMONIOS
+                </a>
                 <a href="#" onclick="navigateToSection('gallery')" class="mobile-menu-link">
-                    📸 TATUAJES APLICADOS
+                    📸 GALERÍA
                 </a>
                 <a href="#" onclick="navigateToSection('services')" class="mobile-menu-link">
                     🎪 SERVICIOS
                 </a>
                 <a href="#" onclick="navigateToSection('about')" class="mobile-menu-link">
                     👥 NOSOTROS
+                </a>
+                <a href="#" onclick="navigateToSection('locations')" class="mobile-menu-link">
+                    📍 PUNTOS DE VENTA
                 </a>
                 <a href="#" onclick="navigateToSection('contact')" class="mobile-menu-link">
                     📞 CONTACTO
@@ -584,9 +1236,18 @@
                     </div>
                 </div>
 
-                <button onclick="showSection('products')" class="btn-primary text-white font-bold py-4 px-8 rounded-2xl text-xl mb-8">
+                <button onclick="showSection('products')" class="btn-primary text-white font-bold py-4 px-8 rounded-2xl text-xl mb-4">
                     VER TATUAJES ✨
                 </button>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                    <button onclick="showSection('videos')" class="btn-secondary text-white font-bold py-3 px-6 rounded-xl">
+                        🎬 VER VIDEOS
+                    </button>
+                    <button onclick="showSection('testimonials')" class="btn-secondary text-white font-bold py-3 px-6 rounded-xl">
+                        ⭐ TESTIMONIOS
+                    </button>
+                </div>
 
                 <p class="text-gray-400 text-sm">
                     Duran hasta 5 días • Hipoalergénicos • Seguros • Sin quejas
@@ -651,24 +1312,75 @@
                     Confían en <span class="text-kokito-pink">Nosotros</span>
                 </h2>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-8 items-center">
-                    <div class="glass-card p-4 md:p-6 rounded-2xl">
-                        <img src="public/LOGO_BANCOLOMBIA.png" alt="Bancolombia" class="h-8 md:h-12 w-auto mx-auto opacity-80 hover:opacity-100 transition-opacity">
-                    </div>
-                    <div class="glass-card p-4 md:p-6 rounded-2xl">
-                        <img src="public/LOGO_ALCALDIA.png" alt="Alcaldía Envigado" class="h-8 md:h-12 w-auto mx-auto opacity-80 hover:opacity-100 transition-opacity">
-                    </div>
-                    <div class="glass-card p-4 md:p-6 rounded-2xl">
-                        <div class="text-white font-bold text-sm md:text-base">BLESSD</div>
-                    </div>
-                    <div class="glass-card p-4 md:p-6 rounded-2xl">
-                        <div class="text-white font-bold text-sm md:text-base">MARCELA REYES</div>
-                    </div>
-                    <div class="glass-card p-4 md:p-6 rounded-2xl">
-                        <div class="text-white font-bold text-sm md:text-base">MAORY</div>
-                    </div>
-                    <div class="glass-card p-4 md:p-6 rounded-2xl">
-                        <div class="text-white font-bold text-sm md:text-base">SARA URIBE</div>
+                <div class="companies-carousel">
+                    <div class="companies-track">
+                        <div class="company-item">
+                            <div class="text-white font-bold">Alcaldía de Envigado</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Alcaldía de Sabaneta</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Bancolombia</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Fundación FOCO</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Blessd</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Grupo Nutresa</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Viva Centro Comercial</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Arquitectura & Concreto</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Noel</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Dímelo Jara</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Grupo Éxito</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Club El Rodeo</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Club Campestre Medellín</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Club Campestre Llanogrande</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Friko</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Instituto Colombiano del Sistema Nervioso</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Ritual Botánico</div>
+                        </div>
+                        <!-- Duplicar para efecto continuo -->
+                        <div class="company-item">
+                            <div class="text-white font-bold">Alcaldía de Envigado</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Alcaldía de Sabaneta</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Bancolombia</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Fundación FOCO</div>
+                        </div>
+                        <div class="company-item">
+                            <div class="text-white font-bold">Blessd</div>
+                        </div>
                     </div>
                 </div>
 
@@ -701,6 +1413,220 @@
                         SEGUIR EN INSTAGRAM
                     </a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEOS SECTION -->
+    <section id="videos" class="page-section pt-24">
+        <div class="max-w-7xl mx-auto px-4 section-padding">
+            <h1 class="font-klop text-4xl md:text-6xl font-bold text-center text-white mb-8">
+                <span class="text-kokito-pink">Videos</span> Explicativos
+            </h1>
+            
+            <p class="text-xl text-gray-300 text-center mb-16">
+                🎥 Descubre cómo funciona nuestro kit y aprende a aplicar los tatuajes perfectamente
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                <!-- Unboxing Video -->
+                <div class="text-center">
+                    <div class="video-container mb-6">
+                        <video id="unboxing-video" class="video-player" controls preload="metadata" poster="public/video-poster-unboxing.jpg">
+                            <source src="videos/kit-unboxing.mp4" type="video/mp4">
+                            <div class="bg-gray-800 text-white p-8 text-center rounded-lg">
+                                <p class="text-lg">📹 Video de Unboxing</p>
+                                <p class="text-sm text-gray-400 mt-2">Coloca tu video aquí: videos/kit-unboxing.mp4</p>
+                            </div>
+                        </video>
+                    </div>
+                    <h3 class="font-klop text-2xl font-bold text-white mb-4">📦 Unboxing del Kit</h3>
+                    <p class="text-gray-300">
+                        Descubre todo lo que incluye nuestro kit completo: tatuajes, glitter, pega mágica y más.
+                    </p>
+                </div>
+
+                <!-- Tutorial Video -->
+                <div class="text-center">
+                    <div class="video-container mb-6">
+                        <video id="tutorial-video" class="video-player" controls preload="metadata" poster="public/video-poster-tutorial.jpg">
+                            <source src="videos/tutorial-aplicacion.mp4" type="video/mp4">
+                            <div class="bg-gray-800 text-white p-8 text-center rounded-lg">
+                                <p class="text-lg">📹 Video Tutorial</p>
+                                <p class="text-sm text-gray-400 mt-2">Coloca tu video aquí: videos/tutorial-aplicacion.mp4</p>
+                            </div>
+                        </video>
+                    </div>
+                    <h3 class="font-klop text-2xl font-bold text-white mb-4">✨ Tutorial de Aplicación</h3>
+                    <p class="text-gray-300">
+                        Aprende paso a paso cómo aplicar los tatuajes para obtener el mejor resultado brillante.
+                    </p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button onclick="window.open('https://kit-kokito.replit.app/', '_blank')" class="btn-primary px-8 py-4 rounded-xl font-bold text-xl">
+                    🎁 COMPRAR MI KIT AHORA
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonials" class="page-section pt-24">
+        <div class="max-w-7xl mx-auto px-4 section-padding">
+            <h1 class="font-klop text-4xl md:text-6xl font-bold text-center text-white mb-8">
+                Lo que dicen nuestros <span class="text-kokito-pink">Clientes</span>
+            </h1>
+            
+            <p class="text-xl text-gray-300 text-center mb-16">
+                💫 Más de 10,000 clientes felices nos respaldan
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face" alt="María García" class="testimonial-avatar">
+                        <div class="ml-4">
+                            <h4 class="font-bold text-white">María García</h4>
+                            <p class="text-gray-400 text-sm">Mamá de 2 niñas</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        ¡Increíble! El kit llegó perfecto y súper rápido. Mis hijas quedaron fascinadas con los tatuajes. Duran exactamente los 5 días que prometen y el glitter se ve espectacular. 100% recomendado.
+                    </p>
+                    <div class="text-kokito-pink text-sm mt-4 font-semibold">Compra verificada ✓</div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?w=150&h=150&fit=crop&crop=face" alt="Andrea Rodríguez" class="testimonial-avatar">
+                        <div class="ml-4">
+                            <h4 class="font-bold text-white">Andrea Rodríguez</h4>
+                            <p class="text-gray-400 text-sm">Organizadora de eventos</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        Contraté la estación para un evento corporativo y fue un éxito total. La profesional llegó puntual, súper organizada y los asistentes quedaron encantados. Definitivamente volveré a contratarlos.
+                    </p>
+                    <div class="text-kokito-pink text-sm mt-4 font-semibold">Cliente frecuente ✓</div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=150&h=150&fit=crop&crop=face" alt="Ana María Jiménez" class="testimonial-avatar">
+                        <div class="ml-4">
+                            <h4 class="font-bold text-white">Ana María Jiménez</h4>
+                            <p class="text-gray-400 text-sm">Emprendedora</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        Compré por mayor para mi negocio y la atención es excelente. Los precios son muy competitivos y la calidad es superior. Mis clientas siempre quedan felices con los resultados.
+                    </p>
+                    <div class="text-kokito-pink text-sm mt-4 font-semibold">Distribuidor autorizado ✓</div>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=150&h=150&fit=crop&crop=face" alt="Valentina López" class="testimonial-avatar">
+                        <div class="ml-4">
+                            <h4 class="font-bold text-white">Valentina López</h4>
+                            <p class="text-gray-400 text-sm">Madre de familia</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        Mi hija quería tatuajes para su cumpleaños y estos fueron perfectos. Son seguros, fáciles de aplicar y se ven increíbles. El envío llegó en tiempo récord a Medellín.
+                    </p>
+                    <div class="text-kokito-pink text-sm mt-4 font-semibold">Compra verificada ✓</div>
+                </div>
+
+                <!-- Testimonial 5 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=150&h=150&fit=crop&crop=face" alt="Laura Jiménez" class="testimonial-avatar">
+                        <div class="ml-4">
+                            <h4 class="font-bold text-white">Laura Jiménez</h4>
+                            <p class="text-gray-400 text-sm">Influencer</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        Como creadora de contenido, necesitaba algo único para mis videos. Los tatuajes Kokito son perfectos para fotos y videos. El brillo se ve espectacular en cámara. ¡Mis seguidoras los aman!
+                    </p>
+                    <div class="text-kokito-pink text-sm mt-4 font-semibold">Colaboradora ✓</div>
+                </div>
+
+                <!-- Testimonial 6 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face" alt="Patricia Vega" class="testimonial-avatar">
+                        <div class="ml-4">
+                            <h4 class="font-bold text-white">Patricia Vega</h4>
+                            <p class="text-gray-400 text-sm">Profesora</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        Los uso como incentivos para mis estudiantes y funcionan de maravilla. Son hipoalergénicos como prometieron, fáciles de quitar y las niñas se motivan muchísimo. Excelente producto educativo.
+                    </p>
+                    <div class="text-kokito-pink text-sm mt-4 font-semibold">Cliente educativo ✓</div>
+                </div>
+            </div>
+
+            <div class="text-center mt-16">
+                <p class="text-2xl font-bold text-kokito-pink mb-8">
+                    ⭐ 4.9/5 estrellas • +10,000 reseñas positivas
+                </p>
+                <button onclick="showSection('products')" class="btn-primary px-8 py-4 rounded-xl font-bold text-xl mr-4">
+                    ✨ VER PRODUCTOS
+                </button>
+                <button onclick="window.open('https://kit-kokito.replit.app/', '_blank')" class="btn-secondary px-8 py-4 rounded-xl font-bold text-xl">
+                    🎁 COMPRAR KIT
+                </button>
             </div>
         </div>
     </section>
@@ -746,7 +1672,7 @@
                     <button onclick="window.open('https://reservas-kokito.replit.app/', '_blank')" class="btn-secondary px-8 py-4 rounded-xl font-bold">
                         🎪 RESERVAR ESTACIÓN
                     </button>
-                    <button onclick="showSection('contact')" class="btn-secondary px-8 py-4 rounded-xl font-bold">
+                    <button onclick="showSection('locations')" class="btn-secondary px-8 py-4 rounded-xl font-bold">
                         📍 VER PUNTOS DE VENTA
                     </button>
                 </div>
@@ -941,6 +1867,35 @@
         </div>
     </section>
 
+    <!-- LOCATIONS SECTION -->
+    <section id="locations" class="page-section pt-24">
+        <div class="max-w-7xl mx-auto px-4 section-padding">
+            <h1 class="font-klop text-4xl md:text-6xl font-bold text-center text-white mb-8">
+                Nuestros <span class="text-kokito-pink">Puntos de Venta</span>
+            </h1>
+            
+            <p class="text-xl text-gray-300 text-center mb-16">
+                📍 17 ubicaciones estratégicas • ✨ Organizados elegantemente por ciudades
+            </p>
+
+            <!-- Locations by Cities -->
+            <div id="locations-container">
+                <!-- Locations will be populated by JavaScript organized by cities -->
+            </div>
+
+            <div class="text-center mt-16">
+                <div class="glass-card p-8 rounded-3xl max-w-2xl mx-auto">
+                    <h3 class="font-klop text-2xl font-bold text-white mb-4">¿No encuentras uno cerca?</h3>
+                    <p class="text-gray-300 mb-6">
+                        Contáctanos y te ayudamos a encontrar el punto de venta más conveniente para ti
+                    </p>
+                    <button onclick="openWhatsApp('location')" class="btn-primary px-8 py-4 rounded-xl font-bold">
+                        📱 Contactar por WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+
     <!-- TATUAJES APLICADOS SECTION -->
     <section id="gallery" class="page-section pt-24">
         <div class="max-w-7xl mx-auto px-4 section-padding">
@@ -1109,46 +2064,41 @@
                 </div>
 
                 <div class="glass-card p-8 rounded-3xl">
-                    <h2 class="font-klop text-2xl font-bold text-white mb-8">Encuéntranos</h2>
+                    <h2 class="font-klop text-2xl font-bold text-white mb-8">Información Adicional</h2>
                     
                     <div class="space-y-6">
                         <div class="flex items-start space-x-4">
-                            <div class="text-2xl">📍</div>
+                            <div class="text-2xl">🏪</div>
                             <div>
-                                <div class="text-kokito-pink font-bold">Medellín</div>
-                                <div class="text-gray-300">Varios puntos de venta</div>
+                                <div class="text-kokito-pink font-bold">Puntos de Venta</div>
+                                <div class="text-gray-300">16 ubicaciones en el área metropolitana</div>
+                                <button onclick="showSection('locations')" class="text-white hover:text-kokito-pink transition-colors text-sm underline mt-2">
+                                    Ver todos los puntos de venta →
+                                </button>
                             </div>
                         </div>
                         
                         <div class="flex items-start space-x-4">
-                            <div class="text-2xl">📍</div>
+                            <div class="text-2xl">🚚</div>
                             <div>
-                                <div class="text-kokito-pink font-bold">Bogotá</div>
-                                <div class="text-gray-300">Varios puntos de venta</div>
+                                <div class="text-kokito-pink font-bold">Envíos Nacionales</div>
+                                <div class="text-gray-300">Cobertura a toda Colombia</div>
                             </div>
                         </div>
                         
                         <div class="flex items-start space-x-4">
-                            <div class="text-2xl">📍</div>
+                            <div class="text-2xl">🎪</div>
                             <div>
-                                <div class="text-kokito-pink font-bold">Cali</div>
-                                <div class="text-gray-300">Varios puntos de venta</div>
+                                <div class="text-kokito-pink font-bold">Estaciones para Eventos</div>
+                                <div class="text-gray-300">Llevamos la experiencia a tu evento</div>
                             </div>
                         </div>
                         
                         <div class="flex items-start space-x-4">
-                            <div class="text-2xl">📍</div>
+                            <div class="text-2xl">📦</div>
                             <div>
-                                <div class="text-kokito-pink font-bold">Barranquilla</div>
-                                <div class="text-gray-300">Varios puntos de venta</div>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start space-x-4">
-                            <div class="text-2xl">📍</div>
-                            <div>
-                                <div class="text-kokito-pink font-bold">Pereira</div>
-                                <div class="text-gray-300">Varios puntos de venta</div>
+                                <div class="text-kokito-pink font-bold">Venta por Mayor</div>
+                                <div class="text-gray-300">Precios especiales para distribuidores</div>
                             </div>
                         </div>
                     </div>
@@ -1156,7 +2106,7 @@
                     <div class="mt-8 pt-8 border-t border-gray-600">
                         <div class="bg-kokito-pink/20 border border-kokito-pink/30 rounded-xl p-4">
                             <p class="text-white text-sm">
-                                <strong>💡 Tip:</strong> Para ubicaciones específicas y disponibilidad, contáctanos por WhatsApp. ¡Te ayudamos a encontrar el punto más cercano!
+                                <strong>💡 Tip:</strong> Para información específica sobre productos, precios y disponibilidad, contáctanos por WhatsApp. ¡Estamos aquí para ayudarte!
                             </p>
                         </div>
                     </div>
@@ -1206,7 +2156,7 @@
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 mb-6">
                 <a href="https://instagram.com/tatuajeskokito" target="_blank" class="text-gray-400 hover:text-kokito-pink transition-colors flex items-center space-x-2">
                     <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.44z"/>
                     </svg>
                     <span class="text-sm sm:text-base">Instagram</span>
                 </a>
@@ -1230,13 +2180,596 @@
                 </a>
             </div>
             
-            <p class="text-gray-500 text-sm">
+            <p class="text-gray-500 text-sm mb-2">
                 © 2025 Kokito Star®. Todos los derechos reservados.
+            </p>
+            
+            <p class="text-gray-600 text-xs">
+                💬 ¿Tienes dudas? Usa nuestro chat en la esquina inferior derecha
+            </p>
+            
+            <p class="text-gray-600 text-xs mt-2">
+                🎬 Videos • ⭐ Testimonios • 📸 Galería • 🎁 Kits • 🎪 Estaciones • ✨ Glitter activo
             </p>
         </div>
     </footer>
 
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-button" onclick="toggleChat()" id="chat-button">
+            <svg id="chat-icon" class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <svg id="close-chat-icon" class="w-7 h-7 text-white hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <!-- Notification badge -->
+            <div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+                <span class="text-white text-xs font-bold">!</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Modal -->
+    <div id="chat-modal" class="chat-modal">
+        <div class="chat-header">
+            <div class="flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                </svg>
+                ¿Cómo podemos ayudarte?
+            </div>
+        </div>
+        
+        <div class="chat-content">
+            <div id="chat-menu" class="space-y-3">
+                <div class="chat-option" onclick="showFAQ()">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">❓</span>
+                        <div>
+                            <div class="font-semibold">Preguntas Frecuentes</div>
+                            <div class="text-sm text-gray-400">Respuestas rápidas a dudas comunes</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-option" onclick="openWhatsApp('consultation')">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">💬</span>
+                        <div>
+                            <div class="font-semibold">Chat en Vivo</div>
+                            <div class="text-sm text-gray-400">Habla directamente con nosotros</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-option" onclick="openWhatsApp('kit')">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">🎁</span>
+                        <div>
+                            <div class="font-semibold">Ir al Sistema de Kits</div>
+                            <div class="text-sm text-gray-400">Personaliza y compra tu kit</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-option" onclick="openWhatsApp('station')">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">🎪</span>
+                        <div>
+                            <div class="font-semibold">Ir al Sistema de Estaciones</div>
+                            <div class="text-sm text-gray-400">Reserva para tu evento</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-option" onclick="openWhatsApp('wholesale')">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">📦</span>
+                        <div>
+                            <div class="font-semibold">Venta por Mayor</div>
+                            <div class="text-sm text-gray-400">Precios especiales para revendedores</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="faq-content" class="hidden">
+                <div class="mb-4">
+                    <button onclick="showChatMenu()" class="text-kokito-pink hover:text-white flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Volver al menú
+                    </button>
+                </div>
+                
+                <div class="space-y-2">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>¿Cuánto duran los tatuajes?</span>
+                            <svg class="w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-300">Nuestros tatuajes duran hasta 5 días, dependiendo del cuidado y la zona de aplicación. Son resistentes al agua y se mantienen brillantes.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>¿Son seguros para niños?</span>
+                            <svg class="w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-300">¡Absolutamente! Son 100% hipoalergénicos y seguros. Hemos aplicado más de 1 millón sin ninguna queja o reacción alérgica.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>¿Cómo se quitan?</span>
+                            <svg class="w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-300">Se remueven fácilmente con aceite para bebé o removedor de maquillaje. Frotar suavemente hasta que se desprendan completamente.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>¿Hacen envíos a toda Colombia?</span>
+                            <svg class="w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-300">Sí, enviamos a toda Colombia. Los envíos suelen llegar entre 1-3 días hábiles según la ciudad de destino.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>¿Qué incluye el kit?</span>
+                            <svg class="w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-300">30 tatuajes personalizados, 6 colores de glitter a elegir, 1 pega mágica, 1 brocha de limpieza e instrucciones detalladas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Chat Widget Functions - Moved to top for immediate availability
+        function toggleChat() {
+            const modal = document.getElementById('chat-modal');
+            const chatIcon = document.getElementById('chat-icon');
+            const closeIcon = document.getElementById('close-chat-icon');
+            
+            if (!modal || !chatIcon || !closeIcon) {
+                console.error('Chat elements not found');
+                return;
+            }
+            
+            if (modal.classList.contains('open')) {
+                modal.classList.remove('open');
+                chatIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            } else {
+                modal.classList.add('open');
+                chatIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+                showChatMenu();
+            }
+        }
+
+        function showChatMenu() {
+            const chatMenu = document.getElementById('chat-menu');
+            const faqContent = document.getElementById('faq-content');
+            if (chatMenu && faqContent) {
+                chatMenu.classList.remove('hidden');
+                faqContent.classList.add('hidden');
+            }
+        }
+
+        function showFAQ() {
+            const chatMenu = document.getElementById('chat-menu');
+            const faqContent = document.getElementById('faq-content');
+            if (chatMenu && faqContent) {
+                chatMenu.classList.add('hidden');
+                faqContent.classList.remove('hidden');
+            }
+        }
+
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('svg');
+            
+            if (answer.classList.contains('open')) {
+                answer.classList.remove('open');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                // Close all other FAQs
+                document.querySelectorAll('.faq-answer.open').forEach(item => {
+                    item.classList.remove('open');
+                    item.previousElementSibling.querySelector('svg').style.transform = 'rotate(0deg)';
+                });
+                
+                answer.classList.add('open');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function openWhatsApp(type) {
+            const messages = {
+                consultation: 'Hola Kokito Star! 👋 Tengo algunas preguntas sobre los tatuajes.',
+                kit: 'Hola! 🎁 Me interesa comprar un kit de tatuajes. ¿Me pueden dar más información?',
+                station: 'Hola! 🎪 Quiero reservar una estación de tatuajes para mi evento. ¿Podrían ayudarme?',
+                wholesale: 'Hola! 📦 Me interesa la venta por mayor. ¿Podrían enviarme información de precios?',
+                location: 'Hola! 📍 Necesito ayuda para encontrar el punto de venta más cercano a mi ubicación.'
+            };
+            
+            // Direct links to systems
+            if (type === 'kit') {
+                window.open('https://kit-kokito.replit.app/', '_blank');
+                toggleChat();
+                return;
+            }
+            
+            if (type === 'station') {
+                window.open('https://reservas-kokito.replit.app/', '_blank');
+                toggleChat();
+                return;
+            }
+            
+            // For other types, use WhatsApp
+            const message = messages[type] || messages.consultation;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/573052661533?text=${encodedMessage}`;
+            
+            window.open(whatsappURL, '_blank');
+            toggleChat(); // Close chat after opening WhatsApp
+        }
+
+        // Locations data
+        const locations = [
+            {
+                id: 1,
+                name: "XTREME FUN ZONE",
+                type: "trampoline",
+                typeLabel: "Parque de trampolines",
+                days: "Viernes, Sábados Domingos y Festivos",
+                schedule: "12:00 - 8:00 P.M.",
+                location: "Centro Comercial Santafé, 4° Piso",
+                address: "Cra 43A #7 Sur 170",
+                city: "medellin",
+                cityLabel: "Medellín",
+                icon: "🦘",
+                logo: "logos/xtreme.png"
+            },
+            {
+                id: 2,
+                name: "FLYING SQUIRREL",
+                type: "trampoline",
+                typeLabel: "Parque de trampolines",
+                days: "Sábados Domingos y Festivos",
+                schedule: "12:00 - 8:00 P.M.",
+                location: "Centro Comercial Los Molinos, 8° Piso",
+                address: "CL 30A #82a-26",
+                city: "medellin",
+                cityLabel: "Medellín",
+                icon: "🦘",
+                logo: "logos/fly.png"
+            },
+            {
+                id: 3,
+                name: "AFTERLAND TESORO",
+                type: "adventure",
+                typeLabel: "Parque de Aventura",
+                days: "Sábados Domingos y Festivos",
+                schedule: "12:00 - 8:00 P.M.",
+                location: "Centro Comercial El Tesoro",
+                address: "Carrera 25A # 1A Sur - 45",
+                city: "medellin",
+                cityLabel: "Medellín",
+                icon: "🎢",
+                logo: "logos/aferland.png"
+            },
+            {
+                id: 4,
+                name: "LA PATURRA GRANJA",
+                type: "granja",
+                typeLabel: "Granja y Restaurante",
+                days: "Sábados Domingos y Festivos",
+                schedule: "10:00 A.M. - 6:00 P.M.",
+                location: "Vía Parque Ecológico El Salado",
+                address: "Calle 40 Sur #23A 31",
+                city: "envigado",
+                cityLabel: "Envigado",
+                icon: "🐄",
+                logo: "logos/paturra.png"
+            },
+            {
+                id: 5,
+                name: "PALOGRANDE",
+                type: "restaurant",
+                typeLabel: "Restaurante tradicional",
+                days: "Miércoles a Domingo y festivos",
+                schedule: "12:00 - 8:00 P.M.",
+                location: "Calle Jardín",
+                address: "Carrera 43a #29 sur 85",
+                city: "envigado",
+                cityLabel: "Envigado",
+                icon: "🍽️",
+                logo: "logos/palogrande.png"
+            },
+            {
+                id: 6,
+                name: "VIVA CENTRO COMERCIAL",
+                type: "mall",
+                typeLabel: "Centro Comercial",
+                days: "Lunes a Domingo y festivos",
+                schedule: "1:00 - 9:00 P.M.",
+                location: "Viva Park, 3° Piso",
+                address: "Cra. 48 #32B Sur-139",
+                city: "envigado",
+                cityLabel: "Envigado",
+                icon: "🏪",
+                logo: "logos/viva.png"
+            },
+            {
+                id: 7,
+                name: "PIGASUS GARDEN",
+                type: "restaurant",
+                typeLabel: "Restaurante",
+                days: "Sábados Domingos y Festivos",
+                schedule: "12:00 - 8:00 P.M.",
+                location: "Llanogrande",
+                address: "kilometro 8, Don Diego-Llanogrande #local 178",
+                city: "envigado",
+                cityLabel: "Envigado",
+                icon: "🍽️",
+                logo: "logos/pigasus.png"
+            },
+            {
+                id: 8,
+                name: "YAMBA! ADVENTURE PARK",
+                type: "trampoline",
+                typeLabel: "Parque de trampolines",
+                days: "Lunes a Domingo y festivos",
+                schedule: "2:00 - 9:00 P.M.",
+                location: "Mall Río del Este El Porvenir",
+                address: "CL 47 #70B - 98",
+                city: "rionegro",
+                cityLabel: "Rionegro",
+                icon: "🦘",
+                logo: "logos/yamba_llan.png"
+            },
+            {
+                id: 9,
+                name: "LA HERENCIA",
+                type: "club",
+                typeLabel: "Restaurante club",
+                days: "Sábados Domingos y Festivos",
+                schedule: "12:00 - 7:00 P.M.",
+                location: "Detrás del Mall Complex Llanogrande",
+                address: "Detrás del Mall Complex Llanogrande",
+                city: "rionegro",
+                cityLabel: "Rionegro",
+                icon: "🏛️",
+                logo: "logos/herencia.png"
+            },
+            {
+                id: 10,
+                name: "LA FINCA DE RIGO",
+                type: "restaurant",
+                typeLabel: "Restaurante tradicional",
+                days: "Sábados Domingos y Festivos",
+                schedule: "12:00 - 8:00 P.M.",
+                location: "Llanogrande",
+                address: "KM13 + 360 Vía JMC",
+                city: "rionegro",
+                cityLabel: "Rionegro",
+                icon: "🍽️",
+                logo: "logos/finca_llan.png"
+            },
+            {
+                id: 11,
+                name: "LA BENDITA",
+                type: "restaurant",
+                typeLabel: "Parrilla - Parche - Picnic",
+                days: "Sábados Domingos y Festivos",
+                schedule: "1:00 - 9:00 P.M.",
+                location: "Vía El Porvenir Llanogrande",
+                address: "Vía El Porvenir Llanogrande",
+                city: "rionegro",
+                cityLabel: "Rionegro",
+                icon: "🍽️",
+                logo: "logos/bendita.png"
+            },
+            {
+                id: 12,
+                name: "COCOROLLO",
+                type: "restaurant",
+                typeLabel: "Restaurante tradicional",
+                days: "Sábados Domingos y Festivos",
+                schedule: "12:00 - 8:00 P.M.",
+                location: "KM 20 Autopista Norte",
+                address: "KM 20 Autopista Norte",
+                city: "girardota",
+                cityLabel: "Girardota",
+                icon: "🍽️",
+                logo: "logos/cocorollo_gir.png"
+            },
+            {
+                id: 13,
+                name: "LA FINCA DE RIGO",
+                type: "restaurant",
+                typeLabel: "Restaurante tradicional",
+                days: "Sábados Domingos y Festivos",
+                schedule: "12:00 - 8:00 P.M.",
+                location: "Autopista Norte KM 21",
+                address: "Autopista Norte KM 21",
+                city: "girardota",
+                cityLabel: "Girardota",
+                icon: "🍽️",
+                logo: "logos/finca_gir.png"
+            },
+            {
+                id: 14,
+                name: "COCOROLLO",
+                type: "restaurant",
+                typeLabel: "Restaurante tradicional",
+                days: "Sábados Domingos y Festivos",
+                schedule: "12:00 - 8:00 P.M.",
+                location: "Variante Vía a Caldas",
+                address: "Cra 48 #100B sur 151",
+                city: "otros",
+                cityLabel: "La Estrella",
+                icon: "🍽️",
+                logo: "logos/cocorollo_est.png"
+            },
+            {
+                id: 15,
+                name: "TAXCO",
+                type: "club",
+                typeLabel: "Restaurante club",
+                days: "Sábados Domingos y Festivos",
+                schedule: "12:00 - 7:00 P.M.",
+                location: "Vía don Diego El Tablazo",
+                address: "Vía don Diego El Tablazo",
+                city: "otros",
+                cityLabel: "Llanogrande",
+                icon: "🏛️",
+                logo: "logos/taxco.png"
+            },
+            {
+                id: 16,
+                name: "YAMBA! ADVENTURE PARK",
+                type: "trampoline",
+                typeLabel: "Parque de trampolines",
+                days: "Lunes a Domingo y festivos",
+                schedule: "2:00 - 9:00 P.M.",
+                location: "Parque Principal La Ceja",
+                address: "CL 19 #21-48",
+                city: "otros",
+                cityLabel: "La Ceja, Antioquia",
+                icon: "🦘",
+                logo: "logos/yamba_ceja.png"
+            },
+            {
+                id: 17,
+                name: "LA FINCA DE RIGO",
+                type: "restaurant",
+                typeLabel: "Restaurante tradicional",
+                days: "Sábados Domingos y Festivos",
+                schedule: "12:00 - 8:00 P.M.",
+                location: "Vía Cerritos, La Esperanza",
+                address: "Vía Cerritos, La Esperanza",
+                city: "otros",
+                cityLabel: "Pereira, Risaralda",
+                icon: "🍽️",
+                logo: "logos/finca_preira.png"
+            }
+        ];
+
+        // Group locations by city
+        const locationsByCity = {
+            'medellin': { name: '🏙️ Medellín', locations: [] },
+            'envigado': { name: '🌳 Envigado', locations: [] },
+            'rionegro': { name: '🏔️ Rionegro', locations: [] },
+            'girardota': { name: '🌿 Girardota', locations: [] },
+            'otros': { name: '📍 Otras Ciudades', locations: [] }
+        };
+
+        // Organize locations by city
+        locations.forEach(location => {
+            if (locationsByCity[location.city]) {
+                locationsByCity[location.city].locations.push(location);
+            }
+        });
+
+        // Render locations organized by cities
+        function renderLocationsByCity() {
+            const container = document.getElementById('locations-container');
+            if (!container) return;
+            
+            let html = '';
+            
+            Object.keys(locationsByCity).forEach(cityKey => {
+                const cityData = locationsByCity[cityKey];
+                if (cityData.locations.length > 0) {
+                    html += `
+                        <div class="city-header">
+                            <h2 class="font-klop">${cityData.name}<span class="city-count">${cityData.locations.length}</span></h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mb-12">
+                    `;
+                    
+                    cityData.locations.forEach(location => {
+                        html += `
+                            <div class="location-card location-${location.type}">
+                                <div class="location-icon">
+                                    <img src="${location.logo}" 
+                                         alt="${location.name}" 
+                                         class="location-logo"
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                                         onload="this.nextElementSibling.style.display='none';">
+                                    <div class="location-fallback-icon" style="display: none;">
+                                        ${location.icon}
+                                    </div>
+                                </div>
+                                <h3 class="font-klop text-lg font-bold text-white mb-2">${location.name}</h3>
+                                <p class="text-gray-400 text-sm mb-4">${location.typeLabel}</p>
+                                
+                                <div class="location-schedule">
+                                    <div class="location-days">${location.days}</div>
+                                    <div class="text-white text-sm mt-2">
+                                        <span class="text-kokito-pink">⏰</span> ${location.schedule}
+                                    </div>
+                                </div>
+                                
+                                <div class="text-gray-300 text-sm space-y-2 my-4">
+                                    <div><span class="text-kokito-pink">📍</span> ${location.location}</div>
+                                    <div><span class="text-kokito-pink">📌</span> ${location.address}</div>
+                                    <div><span class="text-kokito-pink">🏙️</span> ${location.cityLabel}</div>
+                                </div>
+                                
+                                <button onclick="openDirections('${location.address}, ${location.cityLabel}')" class="directions-btn">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    Cómo llegar
+                                </button>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `</div>`;
+                }
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Open Google Maps directions
+        function openDirections(address) {
+            const encodedAddress = encodeURIComponent(address);
+            const mapsURL = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+            window.open(mapsURL, '_blank');
+        }
+
         // Navigation Functions
         function showSection(sectionId) {
             // Hide all sections
@@ -1409,19 +2942,28 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             filterProducts('all');
+            renderLocationsByCity(); // Initialize locations organized by cities
         });
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileButton = document.querySelector('button[onclick="toggleMobileMenu()"]');
-            
-            if (mobileMenu && mobileMenu.classList.contains('open')) {
-                if (!mobileMenu.contains(e.target) && !mobileButton.contains(e.target)) {
-                    mobileMenu.classList.remove('open');
+        // Close mobile menu when pressing Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMobileMenu();
+                // Also close chat if open
+                const chatModal = document.getElementById('chat-modal');
+                if (chatModal && chatModal.classList.contains('open')) {
+                    toggleChat();
                 }
             }
         });
+
+        // Prevent body scroll when menu is open
+        document.addEventListener('touchmove', function(e) {
+            const menu = document.getElementById('mobile-menu');
+            if (menu && menu.classList.contains('open') && !menu.contains(e.target)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
 
         // Smooth scroll for internal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1435,6 +2977,29 @@
                 }
             });
         });
+
+        // Close chat when clicking outside
+        document.addEventListener('click', function(e) {
+            const chatModal = document.getElementById('chat-modal');
+            const chatButton = document.getElementById('chat-button');
+            
+            if (chatModal && chatButton && chatModal.classList.contains('open') && 
+                !chatModal.contains(e.target) && 
+                !chatButton.contains(e.target)) {
+                toggleChat();
+            }
+        });
+
+        // Make sure chat function is available globally
+        window.toggleChat = toggleChat;
+        window.showFAQ = showFAQ;
+        window.showChatMenu = showChatMenu;
+        window.toggleFAQ = toggleFAQ;
+        window.openWhatsApp = openWhatsApp;
+        
+        // Make location functions available globally
+        window.renderLocationsByCity = renderLocationsByCity;
+        window.openDirections = openDirections;
     </script>
 </body>
 </html>
