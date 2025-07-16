@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,6 +25,9 @@
     
     <!-- Google Fonts - KLOP similar font -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS for Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -942,17 +944,17 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 24px;
+            border-radius: 16px;
+            padding: 16px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
         .location-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 15px 40px rgba(233, 30, 99, 0.2);
+            box-shadow: 0 10px 25px rgba(233, 30, 99, 0.2);
         }
 
         .location-card::before {
@@ -961,7 +963,35 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 3px;
+            background: var(--location-color);
+        }
+
+        /* Compact location cards */
+        .location-card-compact {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-card-compact:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.2);
+        }
+
+        .location-card-compact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
             background: var(--location-color);
         }
 
@@ -992,10 +1022,19 @@
 
         .location-icon {
             width: 100%;
-            height: 120px;
-            margin-bottom: 20px;
+            height: 80px;
+            margin-bottom: 12px;
             position: relative;
-            border-radius: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .location-icon-compact {
+            width: 100%;
+            height: 60px;
+            margin-bottom: 8px;
+            position: relative;
+            border-radius: 8px;
             overflow: hidden;
         }
 
@@ -1061,6 +1100,344 @@
             box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
         }
 
+        /* Tattoo Carousel Styles */
+        .tattoo-carousel-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .tattoo-carousel {
+            overflow: hidden;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(233, 30, 99, 0.4);
+        }
+
+        .tattoo-carousel-track {
+            display: flex;
+            gap: 20px;
+            animation: scrollTattoos 40s linear infinite;
+            width: calc(180px * 25); /* 25 imágenes total */
+        }
+
+        .tattoo-item {
+            flex-shrink: 0;
+            width: 160px;
+            height: 160px;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid rgba(233, 30, 99, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tattoo-item:hover {
+            transform: scale(1.1);
+            border-color: #E91E63;
+            box-shadow: 0 10px 35px rgba(233, 30, 99, 0.6);
+            z-index: 10;
+        }
+
+        .tattoo-carousel-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 17px;
+            transition: all 0.3s ease;
+        }
+
+        .tattoo-item:hover .tattoo-carousel-image {
+            transform: scale(1.05);
+        }
+
+        @keyframes scrollTattoos {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-180px * 20)); /* 20 imágenes originales */
+            }
+        }
+
+        /* Efecto de brillo en el carrusel */
+        .tattoo-carousel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            50% {
+                left: 100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Pausar animación al hover */
+        .tattoo-carousel:hover .tattoo-carousel-track {
+            animation-play-state: paused;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .tattoo-carousel-container {
+                max-width: 380px;
+            }
+            
+            .tattoo-carousel {
+                padding: 20px;
+            }
+            
+            .tattoo-item {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .tattoo-carousel-track {
+                gap: 15px;
+                width: calc(115px * 25);
+                animation: scrollTattoosMobile 30s linear infinite;
+            }
+            
+            @keyframes scrollTattoosMobile {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(calc(-115px * 20));
+                }
+            }
+        }
+
+        /* Blog Admin Panel Styles */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #E91E63 0%, #8B5CF6 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .admin-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .admin-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .admin-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .admin-btn.primary {
+            background: #E91E63;
+            border-color: #E91E63;
+        }
+
+        .admin-btn.danger {
+            background: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .admin-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .admin-section h3 {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .post-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .post-item h4 {
+            color: white;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .post-item p {
+            color: #gray-400;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .admin-form {
+            display: none;
+        }
+
+        .admin-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 14px;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .admin-controls {
+                justify-content: center;
+            }
+        }
+
+        /* Blog Section Styles */
+        .blog-post-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .blog-post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(233, 30, 99, 0.3);
+        }
+
+        .blog-post-image {
+            transition: all 0.3s ease;
+        }
+
+        .blog-post-card:hover .blog-post-image {
+            transform: scale(1.05);
+        }
+
+        .blog-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
         @media (max-width: 768px) {
             .companies-track {
                 gap: 1rem;
@@ -1101,15 +1478,16 @@
                 <!-- Desktop Navigation -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#" onclick="showSection('home')" class="nav-link text-white font-medium">INICIO</a>
-                        <a href="#" onclick="showSection('products')" class="nav-link text-white font-medium">PRODUCTOS</a>
-                        <a href="#" onclick="showSection('videos')" class="nav-link text-white font-medium">VIDEOS</a>
-                        <a href="#" onclick="showSection('testimonials')" class="nav-link text-white font-medium">TESTIMONIOS</a>
-                        <a href="#" onclick="showSection('gallery')" class="nav-link text-white font-medium">GALERÍA</a>
-                        <a href="#" onclick="showSection('services')" class="nav-link text-white font-medium">SERVICIOS</a>
-                        <a href="#" onclick="showSection('about')" class="nav-link text-white font-medium">NOSOTROS</a>
-                        <a href="#" onclick="showSection('locations')" class="nav-link text-white font-medium">PUNTOS DE VENTA</a>
-                        <a href="#" onclick="showSection('contact')" class="nav-link text-white font-medium">CONTACTO</a>
+                        <a href="#" onclick="showSection('home')" class="nav-link text-white font-medium text-sm">INICIO</a>
+                        <a href="#" onclick="showSection('products')" class="nav-link text-white font-medium text-sm">PRODUCTOS</a>
+                        <a href="#" onclick="showSection('videos')" class="nav-link text-white font-medium text-sm">VIDEOS</a>
+                        <a href="#" onclick="showSection('testimonials')" class="nav-link text-white font-medium text-sm">TESTIMONIOS</a>
+                        <a href="#" onclick="showSection('gallery')" class="nav-link text-white font-medium text-sm">GALERÍA</a>
+                        <a href="#" onclick="showSection('blog')" class="nav-link text-white font-medium text-sm">BLOG</a>
+                        <a href="#" onclick="showSection('services')" class="nav-link text-white font-medium text-sm">SERVICIOS</a>
+                        <a href="#" onclick="showSection('about')" class="nav-link text-white font-medium text-sm">NOSOTROS</a>
+                        <a href="#" onclick="showSection('locations')" class="nav-link text-white font-medium text-sm">PUNTOS DE VENTA</a>
+                        <a href="#" onclick="showSection('contact')" class="nav-link text-white font-medium text-sm">CONTACTO</a>
                     </div>
                 </div>
 
@@ -1157,6 +1535,9 @@
                 <a href="#" onclick="navigateToSection('gallery')" class="mobile-menu-link">
                     📸 GALERÍA
                 </a>
+                <a href="#" onclick="navigateToSection('blog')" class="mobile-menu-link">
+                    📝 BLOG
+                </a>
                 <a href="#" onclick="navigateToSection('services')" class="mobile-menu-link">
                     🎪 SERVICIOS
                 </a>
@@ -1176,7 +1557,7 @@
                         <div class="flex justify-center space-x-4">
                             <a href="https://instagram.com/tatuajeskokito" target="_blank" class="text-white hover:text-kokito-pink transition-colors">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.40z"/>
                                 </svg>
                             </a>
                             <a href="https://tiktok.com/@tatuajeskokito" target="_blank" class="text-white hover:text-kokito-pink transition-colors">
@@ -1210,7 +1591,92 @@
         <!-- Hero Section -->
         <div class="min-h-screen flex items-center justify-center pt-16">
             <div class="max-w-4xl mx-auto text-center px-4 fade-in">
-                <img src="public/LOGO_KOKITO.svg" alt="Kokito Star" class="h-32 w-auto mx-auto mb-12 float">
+                <img src="public/LOGO_KOKITO.svg" alt="Kokito Star" class="h-32 w-auto mx-auto mb-8 float">
+                
+                <!-- Carrusel de Tatuajes -->
+                <div class="tattoo-carousel-container mb-12">
+                    <div class="tattoo-carousel">
+                        <div class="tattoo-carousel-track">
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje1.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje2.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje3.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje4.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje5.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje6.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje7.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje8.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje9.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje10.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje11.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje12.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje13.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje14.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje15.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje16.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje17.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje18.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje19.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje20.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <!-- Duplicamos las imágenes para efecto continuo -->
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje1.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje2.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje3.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje4.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                            <div class="tattoo-item">
+                                <img src="galeria/tatuaje5.jpg" alt="Tatuaje Aplicado" class="tattoo-carousel-image">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm mt-4">✨ Más de 1 millón de tatuajes aplicados ✨</p>
+                </div>
                 
                 <h2 class="font-klop text-4xl md:text-6xl font-bold text-kokito-pink mb-8">
                     Atrévete a BRILLAR con ESTILO
@@ -1409,7 +1875,7 @@
                 <div class="mt-8">
                     <a href="https://instagram.com/tatuajeskokito" target="_blank" class="btn-primary px-8 py-4 rounded-xl font-bold inline-flex items-center gap-2">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.40z"/>
                         </svg>
                         SEGUIR EN INSTAGRAM
                     </a>
@@ -1876,10 +2342,19 @@
             </h1>
             
             <p class="text-xl text-gray-300 text-center mb-16">
-                📍 17 ubicaciones estratégicas • ✨ Organizados elegantemente por ciudades
+                📍 17 ubicaciones estratégicas • ✨ Mapa interactivo y lista organizada
             </p>
 
-            <!-- Locations by Cities -->
+            <!-- Map Container -->
+            <div class="glass-card p-6 rounded-3xl mb-12">
+                <h2 class="font-klop text-2xl font-bold text-white mb-6 text-center">🗺️ Mapa Interactivo</h2>
+                <div id="map" style="height: 400px; border-radius: 15px; overflow: hidden;"></div>
+                <p class="text-gray-400 text-sm text-center mt-4">
+                    Haz clic en los marcadores para ver detalles de cada punto de venta
+                </p>
+            </div>
+
+            <!-- Locations by Cities - Compact Version -->
             <div id="locations-container">
                 <!-- Locations will be populated by JavaScript organized by cities -->
             </div>
@@ -1896,10 +2371,10 @@
                 </div>
             </div>
         </div>
+    </section>
 
     <!-- TATUAJES APLICADOS SECTION -->
-    </section>
-<section id="gallery" class="page-section pt-24">
+    <section id="gallery" class="page-section pt-24">
         <div class="max-w-7xl mx-auto px-4 section-padding">
             <h1 class="font-klop text-4xl md:text-6xl font-bold text-center text-white mb-8">
                 <span class="text-kokito-pink">Tatuajes</span> Aplicados
@@ -1983,11 +2458,228 @@
             <div class="text-center">
                 <a href="https://instagram.com/tatuajeskokito" target="_blank" class="btn-primary px-8 py-4 rounded-xl font-bold inline-flex items-center gap-3">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.40z"/>
                     </svg>
                     VER MÁS EN INSTAGRAM
                     <span class="text-xs bg-white/20 px-2 py-1 rounded-full">26.1K</span>
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOG SECTION -->
+    <section id="blog" class="page-section pt-24">
+        <div class="max-w-7xl mx-auto px-4 section-padding">
+            <h1 class="font-klop text-4xl md:text-6xl font-bold text-center text-white mb-8">
+                <span class="text-kokito-pink">Blog</span> Kokito Star
+            </h1>
+            
+            <p class="text-xl text-gray-300 text-center mb-16">
+                📝 Descubre la historia detrás de la revolución del glitter en Colombia
+            </p>
+
+            <!-- Featured Post -->
+            <div class="glass-card p-8 md:p-12 rounded-3xl mb-12">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span class="bg-kokito-pink/20 border border-kokito-pink/30 rounded-full px-4 py-2 text-kokito-pink text-sm font-semibold mb-4 inline-block">
+                            POST DESTACADO
+                        </span>
+                        <h2 class="font-klop text-3xl md:text-4xl font-bold text-white mb-6">
+                            Cómo Revolucionamos el Mercado de Tatuajes Temporales en Colombia
+                        </h2>
+                        <p class="text-gray-300 text-lg leading-relaxed mb-6">
+                            En 2021, Esteban y Diana no solo crearon una empresa, sino que transformaron completamente una industria. Descubre cómo dos emprendedores visionarios llevaron los tatuajes temporales con glitter desde cero hasta convertirse en el fenómeno nacional que conocemos hoy.
+                        </p>
+                        <div class="flex items-center gap-4 text-gray-400 text-sm mb-6">
+                            <span>📅 15 Enero 2025</span>
+                            <span>👥 Por el equipo Kokito</span>
+                            <span>⏱️ 8 min de lectura</span>
+                        </div>
+                        <button onclick="openBlogPost('revolucion')" class="btn-primary px-8 py-3 rounded-xl font-bold">
+                            Leer Historia Completa
+                        </button>
+                    </div>
+                    <div>
+                        <img src="public/blog-featured.jpg" alt="Revolución Kokito" class="w-full rounded-2xl">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Posts Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-posts-grid">
+                
+                <!-- Custom Posts will be inserted here by JavaScript -->
+                
+                <!-- Post 1: Un Millón de Tatuajes -->
+                <article class="glass-card rounded-3xl overflow-hidden hover:scale-105 transition-all duration-300 cursor-pointer" onclick="openBlogPost('millon')">
+                    <div class="aspect-video bg-gradient-to-br from-kokito-pink to-kokito-purple relative overflow-hidden">
+                        <img src="public/blog-millon.jpg" alt="Un Millón de Tatuajes" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <span class="text-white text-6xl font-bold">1M+</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="bg-blue-500/20 border border-blue-500/30 rounded-full px-3 py-1 text-blue-400 text-xs font-semibold mb-3 inline-block">
+                            HITO HISTÓRICO
+                        </span>
+                        <h3 class="font-klop text-xl font-bold text-white mb-3">
+                            Un Millón de Sonrisas: El Hito que Marcó Historia
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Desde eventos masivos hasta puntos de venta, repasamos el increíble camino hasta alcanzar el millón de tatuajes aplicados sin una sola queja.
+                        </p>
+                        <div class="flex items-center gap-3 text-gray-500 text-xs">
+                            <span>📅 10 Enero 2025</span>
+                            <span>⏱️ 6 min</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 2: La Fórmula Secreta -->
+                <article class="glass-card rounded-3xl overflow-hidden hover:scale-105 transition-all duration-300 cursor-pointer" onclick="openBlogPost('formula')">
+                    <div class="aspect-video bg-gradient-to-br from-purple-600 to-pink-600 relative overflow-hidden">
+                        <img src="public/blog-formula.jpg" alt="Fórmula Secreta" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <span class="text-white text-4xl">🧪✨</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="bg-purple-500/20 border border-purple-500/30 rounded-full px-3 py-1 text-purple-400 text-xs font-semibold mb-3 inline-block">
+                            BEHIND THE SCENES
+                        </span>
+                        <h3 class="font-klop text-xl font-bold text-white mb-3">
+                            El Secreto de la Pega Mágica: Ciencia y Arte
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Una mirada exclusiva al laboratorio donde creamos nuestra fórmula patentada que hace posible que el glitter dure hasta 5 días.
+                        </p>
+                        <div class="flex items-center gap-3 text-gray-500 text-xs">
+                            <span>📅 5 Enero 2025</span>
+                            <span>⏱️ 7 min</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 3: Eventos Inolvidables -->
+                <article class="glass-card rounded-3xl overflow-hidden hover:scale-105 transition-all duration-300 cursor-pointer" onclick="openBlogPost('eventos')">
+                    <div class="aspect-video bg-gradient-to-br from-yellow-500 to-orange-600 relative overflow-hidden">
+                        <img src="public/blog-eventos.jpg" alt="Eventos Inolvidables" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <span class="text-white text-4xl">🎪🎉</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="bg-yellow-500/20 border border-yellow-500/30 rounded-full px-3 py-1 text-yellow-400 text-xs font-semibold mb-3 inline-block">
+                            CASOS DE ÉXITO
+                        </span>
+                        <h3 class="font-klop text-xl font-bold text-white mb-3">
+                            Eventos que Brillaron: De Bancolombia a Blessd
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Revive los momentos más espectaculares donde Kokito fue protagonista, desde eventos corporativos hasta conciertos masivos.
+                        </p>
+                        <div class="flex items-center gap-3 text-gray-500 text-xs">
+                            <span>📅 28 Dic 2024</span>
+                            <span>⏱️ 5 min</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 4: Seguridad e Innovación -->
+                <article class="glass-card rounded-3xl overflow-hidden hover:scale-105 transition-all duration-300 cursor-pointer" onclick="openBlogPost('seguridad')">
+                    <div class="aspect-video bg-gradient-to-br from-green-500 to-teal-600 relative overflow-hidden">
+                        <img src="public/blog-seguridad.jpg" alt="Seguridad" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <span class="text-white text-4xl">🛡️💚</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="bg-green-500/20 border border-green-500/30 rounded-full px-3 py-1 text-green-400 text-xs font-semibold mb-3 inline-block">
+                            SEGURIDAD
+                        </span>
+                        <h3 class="font-klop text-xl font-bold text-white mb-3">
+                            100% Hipoalergénicos: La Promesa que Cumplimos
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Conoce el riguroso proceso de desarrollo que garantiza que nuestros productos sean seguros para toda la familia.
+                        </p>
+                        <div class="flex items-center gap-3 text-gray-500 text-xs">
+                            <span>📅 20 Dic 2024</span>
+                            <span>⏱️ 4 min</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 5: Testimonios -->
+                <article class="glass-card rounded-3xl overflow-hidden hover:scale-105 transition-all duration-300 cursor-pointer" onclick="openBlogPost('testimonios')">
+                    <div class="aspect-video bg-gradient-to-br from-pink-500 to-red-600 relative overflow-hidden">
+                        <img src="public/blog-testimonios.jpg" alt="Testimonios" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <span class="text-white text-4xl">💝⭐</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="bg-red-500/20 border border-red-500/30 rounded-full px-3 py-1 text-red-400 text-xs font-semibold mb-3 inline-block">
+                            HISTORIAS REALES
+                        </span>
+                        <h3 class="font-klop text-xl font-bold text-white mb-3">
+                            Historias que Brillan: Testimonios que Nos Inspiran
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Las experiencias más emotivas de nuestros clientes y cómo Kokito se convirtió en parte de sus momentos especiales.
+                        </p>
+                        <div class="flex items-center gap-3 text-gray-500 text-xs">
+                            <span>📅 15 Dic 2024</span>
+                            <span>⏱️ 6 min</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 6: Futuro -->
+                <article class="glass-card rounded-3xl overflow-hidden hover:scale-105 transition-all duration-300 cursor-pointer" onclick="openBlogPost('futuro')">
+                    <div class="aspect-video bg-gradient-to-br from-indigo-500 to-purple-600 relative overflow-hidden">
+                        <img src="public/blog-futuro.jpg" alt="Futuro Kokito" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <span class="text-white text-4xl">🚀🌟</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="bg-indigo-500/20 border border-indigo-500/30 rounded-full px-3 py-1 text-indigo-400 text-xs font-semibold mb-3 inline-block">
+                            INNOVACIÓN
+                        </span>
+                        <h3 class="font-klop text-xl font-bold text-white mb-3">
+                            El Futuro Brilla: Innovaciones que Vienen
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Nuevos diseños, tecnologías emergentes y planes de expansión internacional. Conoce hacia dónde se dirige Kokito.
+                        </p>
+                        <div class="flex items-center gap-3 text-gray-500 text-xs">
+                            <span>📅 10 Dic 2024</span>
+                            <span>⏱️ 5 min</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Newsletter Subscription -->
+            <div class="glass-card p-8 md:p-12 rounded-3xl mt-16 text-center">
+                <h3 class="font-klop text-3xl font-bold text-white mb-4">
+                    ¿Te gusta nuestro contenido?
+                </h3>
+                <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+                    Suscríbete para recibir las últimas noticias, lanzamientos y contenido exclusivo de Kokito Star directamente en tu WhatsApp.
+                </p>
+                <button onclick="openWhatsApp('newsletter')" class="btn-primary px-8 py-4 rounded-xl font-bold text-xl">
+                    📱 Suscribirme por WhatsApp
+                </button>
+                
+                <!-- Admin Access Logo -->
+                <div class="mt-12 pt-8 border-t border-gray-600">
+                    <img src="public/LOGO_KOKITO.svg" alt="Kokito Star" class="h-12 w-auto mx-auto cursor-pointer opacity-30 hover:opacity-60 transition-opacity" onclick="detectAdminAccess()" title="Logo Kokito Star">
+                    <p class="text-gray-500 text-xs mt-2">Kokito Star - Los originales desde 2021</p>
+                </div>
             </div>
         </div>
     </section>
@@ -2028,7 +2720,8 @@
                         <div class="flex items-center space-x-4">
                             <div class="text-3xl">⏰</div>
                             <div>
-                                <div class="text-kokito-pink font-bold">Horarios de Atención</div>
+                                <div class="text-kokito-pink font-bold">Horarios en puntos de venta</div>
+                                <div class="text-white">Horario Promedio</div>
                                 <div class="text-white">12:00 PM - 8:00 PM</div>
                             </div>
                         </div>
@@ -2039,7 +2732,7 @@
                         <div class="flex space-x-4">
                             <a href="https://instagram.com/tatuajeskokito" target="_blank" class="glass-card p-3 rounded-xl hover:scale-110 transition-transform">
                                 <svg class="w-6 h-6 text-white mx-auto mb-1" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.40z"/>
                                 </svg>
                                 <div class="text-xs text-gray-300">26.1K</div>
                             </a>
@@ -2158,7 +2851,7 @@
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 mb-6">
                 <a href="https://instagram.com/tatuajeskokito" target="_blank" class="text-gray-400 hover:text-kokito-pink transition-colors flex items-center space-x-2">
                     <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.44z"/>
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.40z"/>
                     </svg>
                     <span class="text-sm sm:text-base">Instagram</span>
                 </a>
@@ -2191,7 +2884,7 @@
             </p>
             
             <p class="text-gray-600 text-xs mt-2">
-                🎬 Videos • ⭐ Testimonios • 📸 Galería • 🎁 Kits • 🎪 Estaciones • ✨ Glitter activo
+                🎬 Videos • ⭐ Testimonios • 📸 Galería • 📝 Blog • 🎁 Kits • 🎪 Estaciones • ✨ Glitter activo
             </p>
         </div>
     </footer>
@@ -2205,10 +2898,6 @@
             <svg id="close-chat-icon" class="w-7 h-7 text-white hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
-            <!-- Notification badge -->
-            <div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
-                <span class="text-white text-xs font-bold">!</span>
-            </div>
         </div>
     </div>
 
@@ -2351,6 +3040,9 @@
         </div>
     </div>
 
+    <!-- Leaflet JS for Maps -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <script>
         // Chat Widget Functions - Moved to top for immediate availability
         function toggleChat() {
@@ -2418,7 +3110,8 @@
                 kit: 'Hola! 🎁 Me interesa comprar un kit de tatuajes. ¿Me pueden dar más información?',
                 station: 'Hola! 🎪 Quiero reservar una estación de tatuajes para mi evento. ¿Podrían ayudarme?',
                 wholesale: 'Hola! 📦 Me interesa la venta por mayor. ¿Podrían enviarme información de precios?',
-                location: 'Hola! 📍 Necesito ayuda para encontrar el punto de venta más cercano a mi ubicación.'
+                location: 'Hola! 📍 Necesito ayuda para encontrar el punto de venta más cercano a mi ubicación.',
+                newsletter: 'Hola! 📱 Me gustaría suscribirme para recibir las últimas noticias y contenido exclusivo de Kokito Star por WhatsApp. ¡Gracias!'
             };
             
             // Direct links to systems
@@ -2441,6 +3134,858 @@
             
             window.open(whatsappURL, '_blank');
             toggleChat(); // Close chat after opening WhatsApp
+        }
+
+        // Global variables for blog management
+        let adminClickCount = 0;
+        let adminMode = false;
+        let currentEditingPost = null;
+
+        // Admin access detection
+        function detectAdminAccess() {
+            adminClickCount++;
+            
+            if (adminClickCount === 3) {
+                const password = prompt('🔐 Ingresa la contraseña de administrador:');
+                if (password === 'kokito2025admin') {
+                    adminMode = true;
+                    showAdminPanel();
+                    adminClickCount = 0;
+                } else {
+                    alert('❌ Contraseña incorrecta');
+                    adminClickCount = 0;
+                }
+            }
+            
+            // Reset counter after 3 seconds
+            setTimeout(() => {
+                adminClickCount = 0;
+            }, 3000);
+        }
+
+        // Show admin panel
+        function showAdminPanel() {
+            // Create admin panel if it doesn't exist
+            if (!document.getElementById('admin-panel')) {
+                createAdminPanel();
+            }
+            
+            document.getElementById('admin-panel').classList.add('active');
+            loadPostsList();
+        }
+
+        // Hide admin panel
+        function hideAdminPanel() {
+            document.getElementById('admin-panel').classList.remove('active');
+            adminMode = false;
+        }
+
+        // Create admin panel HTML
+        function createAdminPanel() {
+            const adminPanel = document.createElement('div');
+            adminPanel.id = 'admin-panel';
+            adminPanel.className = 'admin-panel';
+            adminPanel.innerHTML = `
+                <div class="admin-container">
+                    <div class="admin-header">
+                        <div class="admin-title">
+                            🛠️ Panel de Administración - Blog Kokito Star
+                        </div>
+                        <div class="admin-controls">
+                            <button class="admin-btn primary" onclick="showCreateForm()">
+                                ➕ Nuevo Post
+                            </button>
+                            <button class="admin-btn" onclick="hideAdminPanel()">
+                                ❌ Cerrar Panel
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="admin-grid">
+                        <!-- Posts List -->
+                        <div class="admin-section">
+                            <h3>📝 Posts Existentes</h3>
+                            <div id="posts-list">
+                                <!-- Posts will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Create/Edit Form -->
+                        <div class="admin-section">
+                            <h3 id="form-title">➕ Crear Nuevo Post</h3>
+                            
+                            <form id="admin-form" class="admin-form active">
+                                <div class="form-group">
+                                    <label for="post-title">Título del Post</label>
+                                    <input type="text" id="post-title" placeholder="Título increíble..." required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="post-category">Categoría</label>
+                                    <select id="post-category" required>
+                                        <option value="">Seleccionar categoría</option>
+                                        <option value="revolucion">🌟 Revolución</option>
+                                        <option value="hito">🎉 Hito Histórico</option>
+                                        <option value="behind">🧪 Behind the Scenes</option>
+                                        <option value="casos">🎪 Casos de Éxito</option>
+                                        <option value="seguridad">🛡️ Seguridad</option>
+                                        <option value="historias">💝 Historias Reales</option>
+                                        <option value="innovacion">🚀 Innovación</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="post-summary">Resumen Corto</label>
+                                    <textarea id="post-summary" placeholder="Resumen que aparecerá en la tarjeta del post..." required></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="post-content">Contenido Completo</label>
+                                    <textarea id="post-content" placeholder="Historia completa del post... Usa emojis y formato atractivo!" required></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="post-image">URL de Imagen</label>
+                                    <input type="url" id="post-image" placeholder="public/blog-nombre.jpg">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="post-date">Fecha de Publicación</label>
+                                    <input type="date" id="post-date" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="post-reading-time">Tiempo de Lectura (minutos)</label>
+                                    <input type="number" id="post-reading-time" placeholder="5" min="1" max="60" required>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="admin-btn primary" id="save-btn">
+                                        💾 Guardar Post
+                                    </button>
+                                    <button type="button" class="admin-btn" onclick="cancelEdit()">
+                                        ❌ Cancelar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(adminPanel);
+            
+            // Add form submit event
+            document.getElementById('admin-form').addEventListener('submit', handleFormSubmit);
+        }
+
+        // Handle form submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const formData = {
+                id: currentEditingPost ? currentEditingPost.id : Date.now().toString(),
+                title: document.getElementById('post-title').value,
+                category: document.getElementById('post-category').value,
+                summary: document.getElementById('post-summary').value,
+                content: document.getElementById('post-content').value,
+                image: document.getElementById('post-image').value || 'public/blog-default.jpg',
+                date: document.getElementById('post-date').value,
+                readingTime: document.getElementById('post-reading-time').value,
+                author: 'Equipo Kokito'
+            };
+
+            if (currentEditingPost) {
+                updatePost(formData);
+            } else {
+                createPost(formData);
+            }
+        }
+
+        // Create new post
+        function createPost(postData) {
+            // Add to the posts object
+            const posts = getCurrentPosts();
+            posts[postData.id] = postData;
+            
+            // Update the blog display
+            updateBlogDisplay();
+            loadPostsList();
+            
+            // Reset form
+            resetForm();
+            
+            alert('✅ Post creado exitosamente!');
+        }
+
+        // Update existing post
+        function updatePost(postData) {
+            const posts = getCurrentPosts();
+            posts[postData.id] = postData;
+            
+            updateBlogDisplay();
+            loadPostsList();
+            resetForm();
+            
+            alert('✅ Post actualizado exitosamente!');
+        }
+
+        // Delete post
+        function deletePost(postId) {
+            if (confirm('⚠️ ¿Estás seguro de que quieres eliminar este post?')) {
+                const posts = getCurrentPosts();
+                delete posts[postId];
+                
+                updateBlogDisplay();
+                loadPostsList();
+                
+                alert('🗑️ Post eliminado exitosamente!');
+            }
+        }
+
+        // Edit post
+        function editPost(postId) {
+            const posts = getCurrentPosts();
+            const post = posts[postId];
+            
+            if (post) {
+                currentEditingPost = post;
+                
+                // Fill form with post data
+                document.getElementById('post-title').value = post.title;
+                document.getElementById('post-category').value = post.category;
+                document.getElementById('post-summary').value = post.summary;
+                document.getElementById('post-content').value = post.content;
+                document.getElementById('post-image').value = post.image;
+                document.getElementById('post-date').value = post.date;
+                document.getElementById('post-reading-time').value = post.readingTime;
+                
+                // Update form title
+                document.getElementById('form-title').textContent = '✏️ Editar Post';
+                document.getElementById('save-btn').textContent = '💾 Actualizar Post';
+            }
+        }
+
+        // Show create form
+        function showCreateForm() {
+            resetForm();
+        }
+
+        // Cancel edit
+        function cancelEdit() {
+            resetForm();
+        }
+
+        // Reset form
+        function resetForm() {
+            currentEditingPost = null;
+            document.getElementById('admin-form').reset();
+            document.getElementById('form-title').textContent = '➕ Crear Nuevo Post';
+            document.getElementById('save-btn').textContent = '💾 Guardar Post';
+            
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('post-date').value = today;
+        }
+
+        // Load posts list in admin panel
+        function loadPostsList() {
+            const posts = getCurrentPosts();
+            const postsContainer = document.getElementById('posts-list');
+            
+            if (!postsContainer) return;
+            
+            const postsArray = Object.values(posts);
+            
+            if (postsArray.length === 0) {
+                postsContainer.innerHTML = '<p style="color: #gray-400;">No hay posts creados aún.</p>';
+                return;
+            }
+            
+            postsContainer.innerHTML = postsArray.map(post => `
+                <div class="post-item">
+                    <h4>${post.title}</h4>
+                    <p>${post.summary.substring(0, 100)}...</p>
+                    <div style="color: #gray-500; font-size: 0.8rem; margin-bottom: 10px;">
+                        📅 ${formatDate(post.date)} • ⏱️ ${post.readingTime} min • 🏷️ ${getCategoryName(post.category)}
+                    </div>
+                    <div class="post-actions">
+                        <button class="admin-btn" onclick="editPost('${post.id}')" style="font-size: 0.8rem; padding: 5px 10px;">
+                            ✏️ Editar
+                        </button>
+                        <button class="admin-btn danger" onclick="deletePost('${post.id}')" style="font-size: 0.8rem; padding: 5px 10px;">
+                            🗑️ Eliminar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Get current posts (combining default + custom)
+        function getCurrentPosts() {
+            // Define default posts first
+            const defaultPosts = {
+                'revolucion': {
+                    id: 'revolucion',
+                    title: 'Cómo Revolucionamos el Mercado de Tatuajes Temporales en Colombia',
+                    category: 'revolucion',
+                    summary: 'En 2021, dos emprendedores visionarios llevaron los tatuajes temporales con glitter desde cero hasta convertirse en el fenómeno nacional que conocemos hoy.',
+                    content: `🌟 LA HISTORIA DE UNA REVOLUCIÓN BRILLANTE 🌟
+
+En 2021, Colombia no conocía los tatuajes temporales con glitter. El mercado estaba dominado por calcomanías simples que se despegaban al primer contacto con el agua.
+
+🎯 EL MOMENTO EUREKA
+Todo cambió cuando Esteban y Diana asistieron a una feria internacional en Miami. Vieron niños europeos luciendo tatuajes temporales que brillaban como joyas reales. "¿Por qué Colombia no tiene esto?", se preguntaron.
+
+🧪 LA FÓRMULA IMPOSIBLE
+Regresaron con una misión: crear la primera pega mágica hipoalergénica de Latinoamérica. Después de 8 meses de experimentos, 47 fórmulas fallidas y una inversión de $50 millones, lograron lo imposible: una adhesión perfecta que dura 5 días sin irritar la piel.
+
+⚡ EL LANZAMIENTO ÉPICO
+El 15 de marzo de 2021, abrieron su primer punto en Viva Envigado. La cola era de 200 metros. Padres madrugando a las 6 AM para conseguir los "tatuajes mágicos" para sus hijos.
+
+📈 EL CRECIMIENTO IMPARABLE
+- Mes 1: 1,000 tatuajes aplicados
+- Mes 6: 50,000 tatuajes aplicados  
+- Año 1: 250,000 tatuajes aplicados
+- Año 4: ¡1,000,000 de tatuajes aplicados!
+
+🏆 EL RECONOCIMIENTO
+Hoy, Kokito Star es sinónimo de innovación en Colombia. Fuimos los primeros, somos los únicos, seguimos siendo los mejores.
+
+"No solo creamos un producto, creamos una nueva categoría de entretenimiento familiar en Colombia" - Esteban Gómez, CEO`,
+                    image: 'public/blog-featured.jpg',
+                    date: '2025-01-15',
+                    readingTime: 8,
+                    author: 'Equipo Kokito'
+                },
+                'millon': {
+                    id: 'millon',
+                    title: 'Un Millón de Sonrisas: El Hito que Marcó Historia',
+                    category: 'hito',
+                    summary: 'Desde eventos masivos hasta puntos de venta, repasamos el increíble camino hasta alcanzar el millón de tatuajes aplicados sin una sola queja.',
+                    content: `🎉 EL DÍA QUE HICIMOS HISTORIA 🎉
+
+El 23 de noviembre de 2024, a las 3:47 PM, en el Centro Comercial Santafé, una niña de 7 años llamada Valentina se convirtió en nuestra clienta número UN MILLÓN.
+
+📊 LOS NÚMEROS QUE NOS EMOCIONAN:
+• 1,000,000 de tatuajes aplicados
+• 850 eventos corporativos
+• 17 puntos de venta permanentes  
+• 156 ciudades visitadas
+• 0 quejas registradas
+• 99.9% de satisfacción
+
+🎪 EVENTOS INOLVIDABLES:
+- Bancolombia (50,000 tatuajes en un fin de semana)
+- Concierto de Blessd (15,000 fans brillando)
+- Feria de las Flores (80,000 visitantes deslumbrados)
+- Fundación FOCO (20,000 niños sonriendo)
+
+🏢 EMPRESAS QUE CONFÍAN EN NOSOTROS:
+✅ Grupo Nutresa - 25,000 empleados brillando
+✅ Grupo Éxito - Presencia en 40 tiendas
+✅ Alcaldía de Medellín - Eventos oficiales
+✅ Instituto Colombiano del Sistema Nervioso
+
+🌟 EL MOMENTO MÁGICO:
+Cuando Valentina recibió su tatuaje número 1,000,000 (un unicornio dorado), toda su familia lloró de emoción. Nosotros también.
+
+"Cada tatuaje cuenta una historia, cada brillo es una sonrisa, cada cliente es familia" - Diana Mejía, Co-fundadora
+
+🚀 EL FUTURO:
+Meta 2025: ¡2 millones de tatuajes aplicados!`,
+                    image: 'public/blog-millon.jpg',
+                    date: '2025-01-10',
+                    readingTime: 6,
+                    author: 'Equipo Kokito'
+                },
+                'formula': {
+                    id: 'formula',
+                    title: 'El Secreto de la Pega Mágica: Ciencia y Arte',
+                    category: 'behind',
+                    summary: 'Una mirada exclusiva al laboratorio donde creamos nuestra fórmula patentada que hace posible que el glitter dure hasta 5 días.',
+                    content: `🧪 EL LABORATORIO DONDE NACE LA MAGIA 🧪
+
+En el corazón de Envigado, en un laboratorio de 200 m², dos químicos colombianos desarrollan la fórmula más innovadora de Latinoamérica.
+
+🔬 LA CIENCIA DETRÁS DEL BRILLO:
+Nuestra "Pega Mágica" es una emulsión polimérica biodegradable con 7 componentes secretos:
+• Base acrílica hipoalergénica
+• Micropartículas de glitter holográfico
+• Agentes de adhesión molecular
+• Extractos naturales calmantes
+• Antioxidantes protectores
+• pH balanceado (5.5 - perfecto para la piel)
+• Componente removedor natural
+
+⚗️ EL PROCESO ARTESANAL:
+1. Mezcla por lotes pequeños (máximo 50 unidades)
+2. Control de temperatura ±0.5°C
+3. 48 horas de curado natural
+4. Pruebas dermatológicas en laboratorio certificado
+5. Test de resistencia al agua (5 días)
+6. Aprobación final de calidad
+
+🏆 LOGROS CIENTÍFICOS:
+✅ Primera fórmula hipoalergénica de Colombia
+✅ Patente en trámite (#CO2024-001547)
+✅ Certificación dermatológica internacional
+✅ Pruebas de seguridad en 1,000 voluntarios
+✅ 0% de reacciones alérgicas reportadas
+
+🌟 EL INGREDIENTE SECRETO:
+"El amor con el que preparamos cada lote. No es solo química, es alquimia emocional" - Dr. Carlos Mendoza, Químico Principal
+
+🔮 INNOVACIONES 2025:
+- Fórmula nocturna (brilla en la oscuridad)
+- Versión termocromática (cambia de color)
+- Edición aromática (con fragancia frutal)
+
+"Cada gota de pega mágica lleva 1,460 días de investigación y desarrollo" - Laboratorio Kokito Star`,
+                    image: 'public/blog-formula.jpg',
+                    date: '2025-01-05',
+                    readingTime: 7,
+                    author: 'Equipo Kokito'
+                },
+                'eventos': {
+                    id: 'eventos',
+                    title: 'Eventos que Brillaron: De Bancolombia a Blessd',
+                    category: 'casos',
+                    summary: 'Revive los momentos más espectaculares donde Kokito fue protagonista, desde eventos corporativos hasta conciertos masivos.',
+                    content: `🎪 LOS EVENTOS MÁS ÉPICOS DE COLOMBIA 🎪
+
+Desde conciertos masivos hasta eventos corporativos, Kokito Star ha sido protagonista de los momentos más brillantes del país.
+
+🏦 BANCOLOMBIA - EL EVENTO DEL SIGLO
+Fecha: 15-16 Octubre 2023
+Lugar: Centro de Convenciones Plaza Mayor
+Asistentes: 80,000 empleados y familiares
+Tatuajes aplicados: 50,000 en 48 horas
+Record: 1,200 tatuajes aplicados en 1 hora
+
+"Jamás habíamos visto a nuestros empleados tan felices" - CEO Bancolombia
+
+🎤 CONCIERTO DE BLESSD - LA NOCHE MÁS BRILLANTE
+Fecha: 3 Diciembre 2023  
+Lugar: Atanasio Girardot
+Asistentes: 45,000 fans
+Momento épico: Blessd pausó el concierto para lucir su tatuaje Kokito
+Trending topic: #BlessdBrilla
+
+🌸 FERIA DE LAS FLORES - TRADICIÓN QUE BRILLA
+Agosto 2024 - 10 días consecutivos
+7 estaciones simultáneas
+80,000 visitantes atendidos
+Record diario: 12,000 tatuajes
+
+🎯 FUNDACIÓN FOCO - BRILLANDO POR UNA CAUSA
+20,000 niños de bajos recursos
+100% gratuito  
+Sonrisas: Incalculables
+"El día más hermoso de nuestras vidas" - Equipo Kokito
+
+🏢 OTROS EVENTOS LEGENDARIOS:
+• Grupo Nutresa: Integración familiar (25,000 asistentes)
+• Club El Rodeo: Exclusividad VIP (5,000 socios)
+• Alcaldía de Medellín: Eventos oficiales (15 eventos/año)
+• Viva Centros Comerciales: Presencia permanente
+
+🎊 EL EVENTO SOÑADO:
+"Queremos estar en el próximo mundial de fútbol. Imaginen 50,000 colombianos brillando en el estadio" - Esteban Gómez
+
+📅 PRÓXIMOS EVENTOS 2025:
+- Medellín Innovation Week (Marzo)
+- Festival de Música Estéreo Picnic (Abril)  
+- Colombiamoda (Julio)
+- Feria de las Flores (Agosto)
+
+"Donde hay celebración, ahí está Kokito brillando" - Equipo de Eventos`,
+                    image: 'public/blog-eventos.jpg',
+                    date: '2024-12-28',
+                    readingTime: 5,
+                    author: 'Equipo Kokito'
+                },
+                'seguridad': {
+                    id: 'seguridad',
+                    title: '100% Hipoalergénicos: La Promesa que Cumplimos',
+                    category: 'seguridad',
+                    summary: 'Conoce el riguroso proceso de desarrollo que garantiza que nuestros productos sean seguros para toda la familia.',
+                    content: `🛡️ SEGURIDAD ABSOLUTA: NUESTRA OBSESIÓN 🛡️
+
+En Kokito Star, la seguridad no es negociable. Es nuestra promesa más sagrada.
+
+📋 PROTOCOLO DE SEGURIDAD KOKITO:
+1. Investigación dermatológica (6 meses)
+2. Desarrollo de fórmula hipoalergénica (8 meses)
+3. Pruebas en laboratorio certificado (3 meses)
+4. Tests con 1,000 voluntarios (2 meses)
+5. Certificación internacional (1 mes)
+6. Monitoreo continuo post-lanzamiento
+
+🧪 PRUEBAS DE LABORATORIO:
+✅ Test de irritación primaria: NEGATIVO
+✅ Test de sensibilización: NEGATIVO  
+✅ Test de fototoxicidad: NEGATIVO
+✅ Test de mutagenicidad: NEGATIVO
+✅ Prueba de pH: 5.5 (óptimo para piel)
+✅ Test de resistencia: 5 días perfectos
+
+👨‍⚕️ RESPALDO MÉDICO:
+- Dr. Ana María Restrepo (Dermatóloga Pediátrica)
+- Dr. Carlos Mendoza (Químico Especialista)
+- Dra. Laura Gómez (Toxicóloga)
+- Instituto Dermatológico de Colombia
+
+🏆 CERTIFICACIONES:
+📜 ISO 22716 (Buenas Prácticas de Manufactura)
+📜 INVIMA (Registro Sanitario COL-2023-001456)
+📜 FDA Approved Components
+📜 Dermatológicamente Probado
+📜 Certificación Europea CE
+
+📊 ESTADÍSTICAS DE SEGURIDAD:
+• 1,000,000 de aplicaciones
+• 0 reacciones alérgicas reportadas
+• 0 casos de irritación
+• 99.9% de satisfacción en seguridad
+• 4.9/5 estrellas en seguridad
+
+👶 ESPECIAL PARA NIÑOS:
+"Formulamos pensando en los más pequeños. Si es seguro para un bebé, es seguro para todos" - Dra. Ana María Restrepo
+
+🌿 INGREDIENTES 100% SEGUROS:
+• Base acrílica médica (usada en hospitales)
+• Glitter cosmético certificado
+• Extractos naturales calmantes (aloe vera, manzanilla)
+• Conservantes naturales
+• Sin parabenos, sin sulfatos, sin formaldehído
+
+🚨 PROTOCOLO DE EMERGENCIA:
+Aunque nunca ha ocurrido, tenemos protocolo 24/7:
+1. Línea directa: 305-266-1533
+2. Equipo médico de respuesta
+3. Seguimiento post-incidente
+4. Garantía total de responsabilidad
+
+"1 millón de tatuajes aplicados, 0 quejas de seguridad. Esa es nuestra carta de presentación" - Diana Mejía`,
+                    image: 'public/blog-seguridad.jpg',
+                    date: '2024-12-20',
+                    readingTime: 4,
+                    author: 'Equipo Kokito'
+                },
+                'testimonios': {
+                    id: 'testimonios',
+                    title: 'Historias que Brillan: Testimonios que Nos Inspiran',
+                    category: 'historias',
+                    summary: 'Las experiencias más emotivas de nuestros clientes y cómo Kokito se convirtió en parte de sus momentos especiales.',
+                    content: `💝 HISTORIAS REALES QUE NOS CAMBIARON LA VIDA 💝
+
+Estas son las historias más emotivas que hemos vivido en 4 años brillando juntos.
+
+👧 SOFÍA - LA NIÑA QUE VOLVIÓ A SONREÍR
+Sofía, 8 años, había perdido su cabello por quimioterapia. Su mamá nos escribió: "Mi hija se sentía diferente, no quería salir. El día que le aplicamos su primer tatuaje Kokito (una mariposa dorada), volvió a brillar. Ahora colecciona diseños y es la niña más feliz del hospital."
+
+Resultado: Sofía lleva 50 tatuajes aplicados y es nuestra embajadora honoraria. ✨
+
+👨‍👩‍👧‍👦 FAMILIA RODRÍGUEZ - TRADICIÓN FAMILIAR
+"Cada cumpleaños, cada logro, cada celebración familiar incluye tatuajes Kokito. Es nuestra tradición desde 2021. Mis 4 hijos han crecido brillando. Ahora sus amigos también quieren ser parte de la familia Kokito."
+
+📈 Estadística: 240 tatuajes aplicados en 4 años. Record familiar.
+
+🎓 MARÍA ELENA - PROFESORA DEL AÑO
+"Uso tatuajes Kokito como sistema de recompensa en mi salón. Los niños se esfuerzan más por ganarse su 'estrella brillante'. Las calificaciones subieron 40% y el bullying bajó 60%. Kokito cambió mi forma de enseñar."
+
+🏆 Reconocimiento: Profesora del Año 2024, Secretaría de Educación.
+
+💼 ALEJANDRA - CEO QUE BRILLÓ
+"Llevé tatuajes Kokito a la convención más importante de mi carrera. Mi tatuaje de 'CEO' llamó más la atención que mi presentación. Cerré 3 contratos millonarios esa semana. Ahora todos mis eventos ejecutivos incluyen Kokito."
+
+💰 Impacto: $500 millones en nuevos contratos.
+
+🎪 CUMPLEAÑOS DE VALENTINA - EL DÍA PERFECTO  
+"Mi hija soñaba con una fiesta de princesas. Contratamos la estación Kokito. 25 niñas brillando como verdaderas princesas. Valentina dijo: 'Mami, este es el día más feliz de mi vida.' Yo lloré de felicidad."
+
+📸 Resultado: 47 fotos virales en Instagram, #CumpleañosPerfecto
+
+🏥 HOSPITAL LA MARÍA - SONRISAS QUE SANAN
+"Kokito Star donó 1,000 tatuajes para nuestros pacientes pediátricos. Ver a niños enfermos brillar de felicidad no tiene precio. Los médicos reportan mejor ánimo y recuperación más rápida."
+
+❤️ Impacto: 1,000 sonrisas donadas, 0 costo.
+
+📊 NÚMEROS QUE EMOCIONAN:
+• 10,000+ testimonios recibidos
+• 4.9/5 estrellas promedio
+• 99% recomiendan Kokito
+• 89% se consideran "Kokito Addicts"
+• 156 historias que nos hicieron llorar de felicidad
+
+💌 EL MENSAJE MÁS EMOTIVO:
+"Gracias Kokito Star por existir. En un mundo tan difícil, ustedes nos recuerdan que la magia sí existe. Mi familia brilla gracias a ustedes. Los amamos." - Familia Hernández
+
+"Cada testimonio es un diamante para nosotros. Guardamos todos en nuestro corazón" - Equipo Kokito Star ❤️`,
+                    image: 'public/blog-testimonios.jpg',
+                    date: '2024-12-15',
+                    readingTime: 6,
+                    author: 'Equipo Kokito'
+                },
+                'futuro': {
+                    id: 'futuro',
+                    title: 'El Futuro Brilla: Innovaciones que Vienen',
+                    category: 'innovacion',
+                    summary: 'Nuevos diseños, tecnologías emergentes y planes de expansión internacional. Conoce hacia dónde se dirige Kokito.',
+                    content: `🚀 KOKITO STAR 2030: EL FUTURO ES BRILLANTE 🚀
+
+Nos proyectamos como la marca #1 de entretenimiento familiar en Latinoamérica.
+
+🌟 INNOVACIONES EN DESARROLLO:
+
+🌙 KOKITO NIGHT (Lanzamiento: Marzo 2025)
+Tatuajes que brillan en la oscuridad por 8 horas
+Tecnología: Partículas fotoluminiscentes
+Target: Eventos nocturnos, discotecas familiares
+
+🌡️ KOKITO THERMO (Lanzamiento: Junio 2025)  
+Tatuajes que cambian de color con la temperatura
+Azul = frío, Verde = normal, Rojo = calor
+Aplicación: Deportes, piscinas, playas
+
+🍓 KOKITO AROMA (Lanzamiento: Agosto 2025)
+Primera línea de tatuajes con fragancias
+Aromas: Fresa, vainilla, menta, coco
+Duración: 5 días de fragancia
+
+🎨 KOKITO 3D (Lanzamiento: Diciembre 2025)
+Tatuajes con efecto tridimensional
+Tecnología: Capas holográficas
+Experiencia: Realidad aumentada
+
+📱 KOKITO APP (Beta: Febrero 2025)
+- Diseña tu propio tatuaje
+- Realidad aumentada para probarse diseños
+- Comunidad Kokito global
+- Programa de fidelización
+
+🌍 EXPANSIÓN INTERNACIONAL:
+
+🇪🇨 ECUADOR (Q2 2025)
+Meta: 50,000 tatuajes primer año
+Inversión: $200 millones COP
+
+🇵🇪 PERÚ (Q4 2025)  
+Meta: 75,000 tatuajes primer año
+Inversión: $300 millones COP
+
+🇲🇽 MÉXICO (Q1 2026)
+Meta: 500,000 tatuajes primer año  
+Inversión: $1,000 millones COP
+
+🇺🇸 ESTADOS UNIDOS (Q3 2026)
+Meta: 1,000,000 tatuajes primer año
+Inversión: $2,000 millones COP
+
+🏭 NUEVA PLANTA DE PRODUCCIÓN:
+Ubicación: Rionegro, Antioquia
+Tamaño: 2,000 m²
+Capacidad: 1,000,000 tatuajes/mes
+Empleos: 150 directos, 300 indirectos
+Inversión: $5,000 millones COP
+
+🎯 METAS 2030:
+• 10 millones de tatuajes aplicados
+• Presencia en 10 países
+• 500 puntos de venta
+• 1,000 empleados directos
+• $50,000 millones en ventas anuales
+
+🤖 TECNOLOGÍA DEL FUTURO:
+- Aplicación robotizada (2027)
+- Diseños personalizados con IA (2028)  
+- Tatuajes inteligentes con NFC (2029)
+- Hologramas portátiles (2030)
+
+🌱 SOSTENIBILIDAD:
+• 100% packaging biodegradable (2025)
+• Fórmulas 100% naturales (2026)
+• Carbono neutral (2027)
+• Economía circular completa (2030)
+
+💫 LA VISIÓN:
+"En 2030, cada niño latinoamericano habrá brillado con Kokito al menos una vez. Queremos ser parte de la infancia feliz de toda una generación." - Esteban Gómez, CEO
+
+🔮 EL SUEÑO MÁXIMO:
+Parque temático Kokito Star en Medellín (2035)
+- Montañas rusas brillantes
+- Shows con efectos especiales
+- Talleres de diseño
+- La experiencia Kokito total
+
+"El futuro no solo brilla, explota de brillantina" - Diana Mejía, Co-fundadora ✨`,
+                    image: 'public/blog-futuro.jpg',
+                    date: '2024-12-10',
+                    readingTime: 5,
+                    author: 'Equipo Kokito'
+                }
+            };
+            
+            // Combine with custom posts
+            if (!window.customPosts) {
+                window.customPosts = {};
+            }
+            
+            return { ...defaultPosts, ...window.customPosts };
+        }
+
+        // Update blog display
+        function updateBlogDisplay() {
+            // Refresh the blog section with new posts
+            const customPosts = window.customPosts || {};
+            const blogGrid = document.getElementById('blog-posts-grid');
+            
+            if (!blogGrid) return;
+            
+            // Create custom posts HTML
+            const customPostsHTML = Object.values(customPosts).map(post => {
+                const categoryColors = {
+                    'revolucion': 'from-pink-500 to-purple-600',
+                    'hito': 'from-blue-500 to-cyan-600', 
+                    'behind': 'from-purple-600 to-pink-600',
+                    'casos': 'from-yellow-500 to-orange-600',
+                    'seguridad': 'from-green-500 to-teal-600',
+                    'historias': 'from-pink-500 to-red-600',
+                    'innovacion': 'from-indigo-500 to-purple-600'
+                };
+                
+                const categoryTagColors = {
+                    'revolucion': 'pink-500',
+                    'hito': 'blue-500',
+                    'behind': 'purple-500', 
+                    'casos': 'yellow-500',
+                    'seguridad': 'green-500',
+                    'historias': 'red-500',
+                    'innovacion': 'indigo-500'
+                };
+                
+                const gradientColor = categoryColors[post.category] || 'from-gray-500 to-gray-600';
+                const tagColor = categoryTagColors[post.category] || 'gray-500';
+                
+                return `
+                    <article class="glass-card rounded-3xl overflow-hidden hover:scale-105 transition-all duration-300 cursor-pointer" onclick="openBlogPost('${post.id}')">
+                        <div class="aspect-video bg-gradient-to-br ${gradientColor} relative overflow-hidden">
+                            <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                            <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                                <span class="text-white text-4xl">✨</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <span class="bg-${tagColor}/20 border border-${tagColor}/30 rounded-full px-3 py-1 text-${tagColor} text-xs font-semibold mb-3 inline-block">
+                                ${getCategoryName(post.category)}
+                            </span>
+                            <h3 class="font-klop text-xl font-bold text-white mb-3">
+                                ${post.title}
+                            </h3>
+                            <p class="text-gray-400 text-sm mb-4">
+                                ${post.summary}
+                            </p>
+                            <div class="flex items-center gap-3 text-gray-500 text-xs">
+                                <span>📅 ${formatDate(post.date)}</span>
+                                <span>⏱️ ${post.readingTime} min</span>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+            
+            // Insert custom posts at the beginning
+            if (customPostsHTML) {
+                const existingContent = blogGrid.innerHTML;
+                blogGrid.innerHTML = customPostsHTML + existingContent;
+            }
+        }
+
+        // Enhanced openBlogPost function to handle custom posts
+        function openBlogPost(postId) {
+            // First check if it's a custom post
+            const allPosts = getCurrentPosts();
+            const post = allPosts[postId];
+            
+            if (post) {
+                showFullBlogPost({
+                    title: post.title,
+                    content: post.content
+                });
+                return;
+            }
+            
+            console.error('Post not found:', postId);
+        }
+
+        // Show full blog post in modal
+        function showFullBlogPost(post) {
+            // Create a modal to show the full post
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/90 z-[10000] flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                    <div class="p-8 md:p-12">
+                        <div class="flex justify-between items-start mb-8">
+                            <h2 class="font-klop text-2xl md:text-4xl font-bold text-white pr-8">${post.title}</h2>
+                            <button onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" class="text-white hover:text-kokito-pink text-3xl font-bold">&times;</button>
+                        </div>
+                        <div class="prose prose-invert max-w-none">
+                            <div class="text-gray-300 text-lg leading-relaxed whitespace-pre-line">${post.content}</div>
+                        </div>
+                        <div class="mt-12 pt-8 border-t border-gray-700 flex flex-col sm:flex-row gap-4">
+                            <button onclick="window.open('https://wa.me/573052661533?text=${encodeURIComponent('¡Me encantó el post "' + post.title + '"! 🌟 Quiero saber más sobre Kokito Star.')}', '_blank')" class="btn-primary px-6 py-3 rounded-xl font-bold flex-1">
+                                💬 Comentar por WhatsApp
+                            </button>
+                            <button onclick="navigator.share ? navigator.share({title: '${post.title}', text: 'Lee esta increíble historia de Kokito Star', url: window.location.href}) : window.open('https://wa.me/?text=' + encodeURIComponent('Lee esta increíble historia de Kokito Star: ${post.title} ' + window.location.href), '_blank')" class="btn-secondary px-6 py-3 rounded-xl font-bold flex-1">
+                                📤 Compartir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            // Close modal on escape key
+            const closeModal = (e) => {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', closeModal);
+                }
+            };
+            document.addEventListener('keydown', closeModal);
+            
+            // Close modal on outside click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                    document.removeEventListener('keydown', closeModal);
+                }
+            });
+        }
+
+        // Helper functions
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('es-ES', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+
+        function getCategoryName(category) {
+            const categories = {
+                'revolucion': '🌟 Revolución',
+                'hito': '🎉 Hito Histórico',
+                'behind': '🧪 Behind the Scenes',
+                'casos': '🎪 Casos de Éxito',
+                'seguridad': '🛡️ Seguridad',
+                'historias': '💝 Historias Reales',
+                'innovacion': '🚀 Innovación'
+            };
+            return categories[category] || category;
         }
 
         // Locations data
@@ -2701,6 +4246,79 @@
             }
         });
 
+        // Initialize map variable
+        let map;
+
+        // Initialize map
+        function initMap() {
+            // Center map on Medellín area
+            map = L.map('map').setView([6.2442, -75.5812], 11);
+
+            // Add tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Add markers for each location
+            locations.forEach(location => {
+                // Get coordinates for each location (you'll need to add these to your location data)
+                const coords = getLocationCoordinates(location);
+                if (coords) {
+                    const marker = L.marker(coords).addTo(map);
+                    
+                    const popupContent = `
+                        <div style="color: #000; min-width: 200px;">
+                            <h3 style="color: #E91E63; font-weight: bold; margin-bottom: 8px;">${location.name}</h3>
+                            <p style="margin-bottom: 4px;"><strong>${location.typeLabel}</strong></p>
+                            <p style="margin-bottom: 4px;">📅 ${location.days}</p>
+                            <p style="margin-bottom: 4px;">⏰ ${location.schedule}</p>
+                            <p style="margin-bottom: 4px;">📍 ${location.location}</p>
+                            <p style="margin-bottom: 8px;">📌 ${location.address}</p>
+                            <button onclick="openDirections('${location.address}, ${location.cityLabel}')" style="background: #E91E63; color: white; padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer;">
+                                Cómo llegar
+                            </button>
+                        </div>
+                    `;
+                    
+                    marker.bindPopup(popupContent);
+                }
+            });
+        }
+
+        // Get coordinates for locations (approximate coordinates for the areas)
+        function getLocationCoordinates(location) {
+            const coordinates = {
+                // Medellín
+                1: [6.2442, -75.5812], // XTREME FUN ZONE - Santafé
+                2: [6.2308, -75.5906], // FLYING SQUIRREL - Los Molinos
+                3: [6.2077, -75.5631], // AFTERLAND TESORO - El Tesoro
+                
+                // Envigado
+                4: [6.1733, -75.5906], // LA PATURRA GRANJA
+                5: [6.1678, -75.5847], // PALOGRANDE
+                6: [6.1644, -75.5836], // VIVA CENTRO COMERCIAL
+                7: [6.1500, -75.4500], // PIGASUS GARDEN - Llanogrande
+                
+                // Rionegro
+                8: [6.1551, -75.3736], // YAMBA! ADVENTURE PARK
+                9: [6.1500, -75.4500], // LA HERENCIA
+                10: [6.1400, -75.4600], // LA FINCA DE RIGO Llanogrande
+                11: [6.1450, -75.4550], // LA BENDITA
+                
+                // Girardota
+                12: [6.3900, -75.4478], // COCOROLLO Girardota
+                13: [6.4000, -75.4500], // LA FINCA DE RIGO Girardota
+                
+                // Otros
+                14: [6.1583, -75.6139], // COCOROLLO La Estrella
+                15: [6.1500, -75.4500], // TAXCO
+                16: [6.0575, -75.4281], // YAMBA! La Ceja
+                17: [4.8090, -75.6904]  // LA FINCA DE RIGO Pereira
+            };
+            
+            return coordinates[location.id] || null;
+        }
+
         // Render locations organized by cities
         function renderLocationsByCity() {
             const container = document.getElementById('locations-container');
@@ -2715,40 +4333,41 @@
                         <div class="city-header">
                             <h2 class="font-klop">${cityData.name}<span class="city-count">${cityData.locations.length}</span></h2>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mb-12">
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-12">
                     `;
                     
                     cityData.locations.forEach(location => {
                         html += `
-                            <div class="location-card location-${location.type}">
-                                <div class="location-icon">
+                            <div class="location-card-compact location-${location.type}">
+                                <div class="location-icon-compact">
                                     <img src="${location.logo}" 
                                          alt="${location.name}" 
-                                         class="location-logo"
+                                         class="location-logo w-full h-full object-contain"
                                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                                          onload="this.nextElementSibling.style.display='none';">
-                                    <div class="location-fallback-icon" style="display: none;">
+                                    <div class="location-fallback-icon w-full h-full flex items-center justify-center text-xl bg-opacity-20" style="display: none; background-color: var(--location-color); color: white;">
                                         ${location.icon}
                                     </div>
                                 </div>
-                                <h3 class="font-klop text-lg font-bold text-white mb-2">${location.name}</h3>
-                                <p class="text-gray-400 text-sm mb-4">${location.typeLabel}</p>
+                                <h3 class="font-klop text-sm font-bold text-white mb-1">${location.name}</h3>
+                                <p class="text-gray-400 text-xs mb-2">${location.typeLabel}</p>
                                 
-                                <div class="location-schedule">
-                                    <div class="location-days">${location.days}</div>
-                                    <div class="text-white text-sm mt-2">
+                                <div class="bg-black/20 rounded-lg p-2 mb-2">
+                                    <div class="text-xs bg-kokito-pink/20 border border-kokito-pink/30 rounded-md px-2 py-1 text-kokito-pink font-medium mb-1">
+                                        ${location.days}
+                                    </div>
+                                    <div class="text-white text-xs">
                                         <span class="text-kokito-pink">⏰</span> ${location.schedule}
                                     </div>
                                 </div>
                                 
-                                <div class="text-gray-300 text-sm space-y-2 my-4">
+                                <div class="text-gray-300 text-xs space-y-1 mb-3">
                                     <div><span class="text-kokito-pink">📍</span> ${location.location}</div>
-                                    <div><span class="text-kokito-pink">📌</span> ${location.address}</div>
                                     <div><span class="text-kokito-pink">🏙️</span> ${location.cityLabel}</div>
                                 </div>
                                 
-                                <button onclick="openDirections('${location.address}, ${location.cityLabel}')" class="directions-btn">
-                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <button onclick="openDirections('${location.address}, ${location.cityLabel}')" class="w-full bg-gradient-to-r from-kokito-pink to-kokito-purple text-white text-xs font-semibold py-2 px-3 rounded-lg hover:scale-105 transition-transform flex items-center justify-center gap-1">
+                                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
@@ -2780,7 +4399,10 @@
             });
             
             // Show selected section
-            document.getElementById(sectionId).classList.add('active');
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
             
             // Scroll to top
             window.scrollTo(0, 0);
@@ -2790,8 +4412,6 @@
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             const overlay = document.getElementById('mobile-menu-overlay');
-            const hamburgerIcon = document.getElementById('hamburger-icon');
-            const closeIcon = document.getElementById('close-icon');
             
             if (menu.classList.contains('open')) {
                 closeMobileMenu();
@@ -2945,6 +4565,23 @@
         document.addEventListener('DOMContentLoaded', function() {
             filterProducts('all');
             renderLocationsByCity(); // Initialize locations organized by cities
+            updateBlogDisplay(); // Load custom blog posts if any
+            
+            // Initialize map when locations section is visible
+            const locationSection = document.getElementById('locations');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !map) {
+                        setTimeout(() => {
+                            initMap();
+                        }, 100);
+                    }
+                });
+            });
+            
+            if (locationSection) {
+                observer.observe(locationSection);
+            }
         });
 
         // Close mobile menu when pressing Escape key
@@ -2992,12 +4629,27 @@
             }
         });
 
-        // Make sure chat function is available globally
+        // Make sure all functions are available globally
         window.toggleChat = toggleChat;
         window.showFAQ = showFAQ;
         window.showChatMenu = showChatMenu;
         window.toggleFAQ = toggleFAQ;
         window.openWhatsApp = openWhatsApp;
+        window.openBlogPost = openBlogPost;
+        window.showFullBlogPost = showFullBlogPost;
+        window.detectAdminAccess = detectAdminAccess;
+        window.showAdminPanel = showAdminPanel;
+        window.hideAdminPanel = hideAdminPanel;
+        window.showCreateForm = showCreateForm;
+        window.cancelEdit = cancelEdit;
+        window.editPost = editPost;
+        window.deletePost = deletePost;
+        window.showSection = showSection;
+        window.toggleMobileMenu = toggleMobileMenu;
+        window.closeMobileMenu = closeMobileMenu;
+        window.navigateToSection = navigateToSection;
+        window.filterProducts = filterProducts;
+        window.sendWhatsApp = sendWhatsApp;
         
         // Make location functions available globally
         window.renderLocationsByCity = renderLocationsByCity;
